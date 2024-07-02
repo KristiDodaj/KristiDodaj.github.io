@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kristi Dodaj - Profile</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto Mono', monospace;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        body.dark-mode {
+            background: linear-gradient(to right, #2c2c2c, #6e6e6e);
+            color: white;
+        }
+        body.light-mode {
+            background: linear-gradient(to right, #f0f0f0, #ffffff);
+            color: #333;
+        }
+        .container {
+            text-align: center;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease-out forwards;
+            animation-delay: 0.5s;
+        }
+        .typing-container {
+            display: inline-flex;
+            align-items: center;
+            position: relative;
+        }
+        h1 {
+            font-size: 3rem;
+            margin: 0;
+            padding: 0;
+            font-weight: 700;
+            line-height: 1;
+        }
+        .cursor {
+            width: 3px;
+            height: 3rem;
+            margin-left: 2px;
+            animation: blink 0.7s infinite;
+        }
+        .dark-mode .cursor {
+            background-color: white;
+        }
+        .light-mode .cursor {
+            background-color: #333;
+        }
+        p {
+            font-size: 1.2rem;
+            font-weight: 400;
+            margin-top: 1rem;
+        }
+        .sidebar {
+            position: fixed;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            height: 180px;
+            justify-content: space-between;
+        }
+        .sidebar a {
+            opacity: 0;
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+        .sidebar img {
+            width: 30px;
+            height: 30px;
+            transition: transform 0.3s ease;
+        }
+        .sidebar img:hover {
+            transform: scale(1.1);
+        }
+        .sidebar a:first-child img {
+            width: 40px;
+            height: 40px;
+        }
+        .sidebar a:nth-child(1) { animation-delay: 0.2s; }
+        .sidebar a:nth-child(2) { animation-delay: 0.4s; }
+        .sidebar a:nth-child(3) { animation-delay: 0.6s; }
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            font-size: 24px;
+            cursor: pointer;
+            opacity: 0;
+            animation: fadeIn 0.5s ease-out forwards;
+            animation-delay: 0.8s;
+            z-index: 1000;
+        }
+        .line-top, .line-bottom {
+            width: 2px;
+            position: fixed;
+            left: 34px;
+            animation: pulse 2s infinite;
+        }
+        .dark-mode .line-top, .dark-mode .line-bottom {
+            background-color: white;
+        }
+        .light-mode .line-top, .light-mode .line-bottom {
+            background-color: #333;
+        }
+        .line-top {
+            top: 0;
+            height: calc(50% - 110px);
+        }
+        .line-bottom {
+            bottom: 0;
+            height: calc(50% - 110px);
+        }
+        .footer {
+            position: fixed;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 0.9rem;
+            opacity: 0;
+            animation: fadeIn 0.5s ease-out forwards;
+            animation-delay: 2s;
+        }
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+    </style>
+</head>
+<body class="dark-mode">
+    <div class="line-top"></div>
+    <div class="line-bottom"></div>
+    <div class="theme-toggle" id="theme-toggle-btn">🌙</div>
+    <div class="sidebar">
+        <a href="https://www.linkedin.com/in/kristidodaj" target="_blank" rel="noopener noreferrer">
+            <img src="/ln-dark.png" alt="LinkedIn" id="linkedin-icon">
+        </a>
+        <a href="https://github.com/KristiDodaj" target="_blank" rel="noopener noreferrer">
+            <img src="/github-dark.png" alt="GitHub" id="github-icon">
+        </a>
+        <a href="https://drive.google.com/file/d/1xif0ktv2S3F8BmwCBlR4V4Vx8qNQ95S3/view?usp=sharing" target="_blank">
+            <img src="/resume-dark.png" alt="Resume" id="resume-icon">
+        </a>
+    </div>
+    <div class="container">
+        <div class="typing-container">
+            <h1 id="typed-name"></h1><span class="cursor"></span>
+        </div>
+        <p>Hi there 👋 I'm a CS student @University of Toronto, navigating the exciting <br> world of software engineering and tech. Curious about what I'm up to? <br> Check out my portfolio or shoot me an email or LinkedIn message! </p>
+    </div>
+    <div class="footer">
+        Made with <span id="heart">🤍</span> by Kristi Dodaj
+    </div>
+    <script>
+        const name = "KRISTI DODAJ";
+        const typedName = document.getElementById('typed-name');
+        let i = 0;
+
+        function typeWriter() {
+            if (i < name.length) {
+                typedName.innerHTML += name.charAt(i);
+                i++;
+                setTimeout(typeWriter, 200);
+            }
+        }
+
+        setTimeout(typeWriter, 1300);
+
+        // Theme toggle functionality
+        const body = document.body;
+        const themeToggleBtn = document.getElementById('theme-toggle-btn');
+        const linkedinIcon = document.getElementById('linkedin-icon');
+        const githubIcon = document.getElementById('github-icon');
+        const resumeIcon = document.getElementById('resume-icon');
+        const heart = document.getElementById('heart');
+
+        themeToggleBtn.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            body.classList.toggle('light-mode');
+            updateThemeToggleIcon();
+            updateIcons();
+            updateHeart();
+        });
+
+        function updateThemeToggleIcon() {
+            if (body.classList.contains('dark-mode')) {
+                themeToggleBtn.textContent = '🌙'; 
+            } else {
+                themeToggleBtn.textContent = '☀️'; 
+            }
+        }
+
+        function updateIcons() {
+            const mode = body.classList.contains('dark-mode') ? 'dark' : 'light';
+            linkedinIcon.src = `/ln-${mode}.png`;
+            githubIcon.src = `/github-${mode}.png`;
+            resumeIcon.src = `/resume-${mode}.png`;
+        }
+
+        function updateHeart() {
+            heart.textContent = body.classList.contains('dark-mode') ? '🤍' : '🖤';
+        }
+
+        updateThemeToggleIcon();
+        updateIcons();
+        updateHeart();
+    </script>
+</body>
+</html>
