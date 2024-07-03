@@ -77,20 +77,27 @@
             opacity: 0;
             animation: fadeIn 0.5s ease-out forwards;
             margin-right: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         .sidebar img {
             width: 24px;
             height: 24px;
             transition: transform 0.3s ease;
         }
+        .sidebar a:first-child img {
+            width: 30px;
+            height: 30px;
+        }
         .sidebar img:hover {
             transform: scale(1.1);
         }
         .theme-toggle {
             position: fixed;
-            top: 20px;
+            top: 15px;
             right: 20px;
-            font-size: 24px;
+            font-size: 30px;
             cursor: pointer;
             opacity: 0;
             animation: fadeIn 0.5s ease-out forwards;
@@ -108,26 +115,27 @@
             animation: fadeIn 0.5s ease-out forwards;
             animation-delay: 2s;
         }
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        @keyframes fadeIn {
-            to {
-                opacity: 1;
-            }
-        }
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
-        }
-        
         .line-top, .line-bottom {
             display: none;
         }
         
+        @media (max-width: 767px) {
+            .sidebar {
+                left: 15px;
+                top: 15px;
+            }
+            .sidebar a {
+                margin-right: 15px;
+            .sidebar img {
+                width: 26px;
+                height: 26px;
+            }
+            .sidebar a:first-child img {
+                width: 32px;
+                height: 32px;
+            }
+        }
+
         @media (min-width: 768px) {
             .sidebar {
                 left: 46px;
@@ -188,6 +196,21 @@
             }
         }
         
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
         @keyframes pulse {
             0%, 100% {
                 opacity: 1;
@@ -201,7 +224,7 @@
 <body class="dark-mode">
     <div class="line-top"></div>
     <div class="line-bottom"></div>
-    <div class="theme-toggle" id="theme-toggle-btn">🌙</div>
+    <div class="theme-toggle" id="theme-toggle-btn">☽</div>
     <div class="sidebar">
         <a href="https://www.linkedin.com/in/kristidodaj" target="_blank" rel="noopener noreferrer">
             <img src="/ln-dark.png" alt="LinkedIn" id="linkedin-icon">
@@ -237,7 +260,6 @@
 
         setTimeout(typeWriter, 1300);
 
-        // Theme toggle functionality
         const body = document.body;
         const themeToggleBtn = document.getElementById('theme-toggle-btn');
         const linkedinIcon = document.getElementById('linkedin-icon');
@@ -255,7 +277,7 @@
 
         function updateThemeToggleIcon() {
             if (body.classList.contains('dark-mode')) {
-                themeToggleBtn.textContent = '🌙'; 
+                themeToggleBtn.textContent = '☽'; 
             } else {
                 themeToggleBtn.textContent = '☀️'; 
             }
