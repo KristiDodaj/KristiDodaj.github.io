@@ -12,7 +12,8 @@
             --bg-gradient-light: linear-gradient(to right, #f0f0f0, #ffffff);
             --text-color-dark: #ffffff;
             --text-color-light: #333333;
-            --timeline-color: #333333;
+            --timeline-color: #323232;
+            --timeline-color-mobile: #1b1b1b; /* New variable for mobile timeline color */
             --card-bg-dark: rgba(255, 255, 255, 0.1);
             --card-bg-light: rgba(255, 255, 255, 0.9);
             --card-border-light: #d1d1d1;
@@ -213,7 +214,7 @@
         @media (max-width: 767px) {
             .timeline::before {
                 left: 0;
-                background: #333333;
+                background: var(--timeline-color-mobile); /* Use the new darker color for mobile */
             }
             .timeline-item {
                 padding-left: 32px;
@@ -228,7 +229,7 @@
             }
             .timeline-item::before {
                 left: 0;
-                background: #333333;
+                background: var(--timeline-color-mobile); /* Use the new darker color for mobile */
             }
             .timeline-item-content {
                 width: calc(100% - 32px);
