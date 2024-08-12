@@ -115,10 +115,61 @@
             animation: fadeIn 0.5s ease-out forwards;
             animation-delay: 3.3s;
         }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 1.5rem;
+        }
+        .button-link {
+            display: inline-block;
+            font-size: 1rem;
+            text-decoration: none;
+            color: white;
+            background-color: transparent;
+            border: 2px solid white;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        .button-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            z-index: -1;
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease;
+        }
+        .button-link:hover {
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .button-link:hover::before {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+        .light-mode .button-link {
+            color: #333;
+            border-color: #333;
+        }
+        .light-mode .button-link::before {
+            background: rgba(0, 0, 0, 0.1);
+        }
+        .light-mode .button-link:hover {
+            color: #333;
+        }
         .line-top, .line-bottom {
             display: none;
         }
-        
         @media (max-width: 767px) {
             .sidebar {
                 left: 15px;
@@ -222,7 +273,7 @@
         }
     </style>
 </head>
-<body class="dark-mode">
+<body>
     <div class="line-top"></div>
     <div class="line-bottom"></div>
     <div class="theme-toggle" id="theme-toggle-btn">☽</div>
@@ -242,6 +293,10 @@
             <h1 id="typed-name"></h1><span class="cursor"></span>
         </div>
         <p>Hi there 👋 I'm a CS student @University of Toronto, navigating the exciting world of software engineering and tech. Curious about what I'm up to? Check out my portfolio or shoot me an email or LinkedIn message!</p>
+        <div class="button-container">
+            <a href="projects.html" class="button-link">VIEW MY PROJECTS</a>
+            <a href="experience.html" class="button-link">VIEW MY EXPERIENCE</a>
+        </div>
     </div>
     <div class="footer">
         Made with <span id="heart">🤍</span> by Kristi Dodaj
@@ -268,12 +323,22 @@
         const resumeIcon = document.getElementById('resume-icon');
         const heart = document.getElementById('heart');
 
+        // Load theme from localStorage
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            body.className = savedTheme;
+        } else {
+            body.className = 'dark-mode';
+        }
+
         themeToggleBtn.addEventListener('click', () => {
             body.classList.toggle('dark-mode');
             body.classList.toggle('light-mode');
             updateThemeToggleIcon();
             updateIcons();
             updateHeart();
+            // Save theme to localStorage
+            localStorage.setItem('theme', body.className);
         });
 
         function updateThemeToggleIcon() {

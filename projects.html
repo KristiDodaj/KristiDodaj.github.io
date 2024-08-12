@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kristi Dodaj - Projects</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="favicon.png" type="image/x-icon">
+    <style>
+        body {
+            font-family: 'Roboto Mono', monospace;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+        body.dark-mode {
+            background: linear-gradient(to right, #2c2c2c, #6e6e6e);
+            color: white;
+        }
+        body.light-mode {
+            background: linear-gradient(to right, #f0f0f0, #ffffff);
+            color: #333;
+        }
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            padding: 2rem;
+            box-sizing: border-box;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+        }
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        .project-card {
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            padding: 1.5rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            opacity: 0;
+            animation: fadeIn 0.5s ease-out forwards;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            height: auto;
+            min-height: 250px;
+        }
+        .project-card:nth-child(1) { animation-delay: 0.2s; }
+        .project-card:nth-child(2) { animation-delay: 0.4s; }
+        .project-card:nth-child(3) { animation-delay: 0.6s; }
+        .project-card:nth-child(4) { animation-delay: 0.8s; }
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        .project-card h2 {
+            margin-top: 0;
+            font-size: 1.5rem;
+        }
+        .project-card p {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+        }
+        .project-card a {
+            display: inline-block;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            background-color: transparent;
+            border: 2px solid white;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            align-self: flex-start;
+        }
+        .project-card a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            z-index: -1;
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease;
+        }
+        .project-card a:hover {
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .project-card a:hover::before {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+        .light-mode .project-card a {
+            color: #333;
+            border-color: #333;
+        }
+        .light-mode .project-card a::before {
+            background: rgba(0, 0, 0, 0.1);
+        }
+        .light-mode .project-card a:hover {
+            color: #333;
+        }
+        .dark-mode {
+            --bg-color: #2c2c2c;
+        }
+        .light-mode {
+            --bg-color: #f0f0f0;
+        }
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            font-size: 30px;
+            cursor: pointer;
+            z-index: 1000;
+            opacity: 0;
+            animation: fadeIn 0.5s ease-out forwards;
+            animation-delay: 1s;
+        }
+        .back-link {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            font-size: 1rem;
+            text-decoration: none;
+            color: white;
+            background-color: transparent;
+            border: 2px solid white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            overflow: hidden;
+            z-index: 1;
+            opacity: 0;
+            animation: fadeIn 0.5s ease-out forwards;
+            animation-delay: 1s;
+            display: flex;
+            align-items: center;
+        }
+        .back-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            z-index: -1;
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease;
+        }
+        .back-link:hover {
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .back-link:hover::before {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+        .light-mode .back-link {
+            color: #333;
+            border-color: #333;
+        }
+        .light-mode .back-link::before {
+            background: rgba(0, 0, 0, 0.1);
+        }
+        .light-mode .back-link:hover {
+            color: #333;
+        }
+        .back-link span {
+            margin-right: 5px;
+        }
+        .footer {
+            position: fixed;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 0.9rem;
+            opacity: 0;
+            animation: fadeIn 0.5s ease-out forwards;
+            animation-delay: 1.2s;
+            padding: 20px 0;
+        }
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+        @media (max-width: 767px) {
+            .back-link {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="theme-toggle" id="theme-toggle-btn">☽</div>
+    <a href="index.html" class="back-link"> BACK</a>
+    
+    <div class="container">
+        <h1>PROJECTS</h1>
+        <div class="projects-grid">
+            <div class="project-card">
+                <div>
+                    <h2>HandGeastureCNN 🧠</h2>
+                    <p>A Convolutional Neural Network (CNN) trained to identify hand gestures of numbers 1-9 from a dataset of 15,000 labeled images with an 88% accuracy.
+                        <br>
+                        <br>Technologies: Python, PyTorch, Matplotlib</p>
+                    </p>
+                </div>
+                <a href="https://github.com/KristiDodaj/HandGestureCNN" target="https://github.com/KristiDodaj/HandGestureCNN">View Project</a>
+            </div>
+            <div class="project-card">
+                <div>
+                    <h2>Plannr 📆</h2>
+                    <p>Plannr helps students plan their timetables by telling them which courses they can take, based on courses they have taken, and when those courses are available.
+                        <br>
+                        <br>Technologies: Java, Mockito, Android Studio, Firebase Realtime Databse</p>
+                    </p>
+                </div>
+                <a href="https://github.com/richardye101/Plannr" target="_blank">View Project</a>
+            </div>
+            <div class="project-card">
+                <div>
+                    <h2>CLI Monitor Tool 📈</h2>
+                    <p> A command-line system monitoring tool for Unix and Linux systems that provides CPU and memory usage,
+                        system information, and user sessions.
+                        <br>
+                        <br>Technologies: C, Makefile, Linux/Unix
+                    </p>
+                </div>
+                <a href="https://github.com/KristiDodaj/System-Monitoring-Tool" target="_blank">View Project</a>
+            </div>
+            <div class="project-card">
+                <div>
+                    <h2>Recap 🚨</h2>
+                    <p>An app providing users with a 24-hour recap of the most current and accurate events around the world.
+                        <br>
+                        <br>Technologies: JavaScript, React Native, Node.js, Express.js, Firebase Cloud Functions</p>
+                    </p>
+                </div>
+                <a href="https://github.com/KristiDodaj/RECAP" target="_blank">View Project</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        Made with <span id="heart">🤍</span> by Kristi Dodaj
+    </div>
+
+    <script>
+        const body = document.body;
+        const themeToggleBtn = document.getElementById('theme-toggle-btn');
+        const heart = document.getElementById('heart');
+        const backLink = document.querySelector('.back-link');
+
+        // Load theme from localStorage
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme) {
+            body.className = savedTheme;
+        } else {
+            body.className = 'dark-mode';
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            body.classList.toggle('light-mode');
+            updateThemeToggleIcon();
+            updateHeart();
+            updateBackLinkColor();
+            // Save theme to localStorage
+            localStorage.setItem('theme', body.className);
+        });
+
+        function updateThemeToggleIcon() {
+            if (body.classList.contains('dark-mode')) {
+                themeToggleBtn.textContent = '☽'; 
+            } else {
+                themeToggleBtn.textContent = '☀️'; 
+            }
+        }
+
+        function updateHeart() {
+            heart.textContent = body.classList.contains('dark-mode') ? '🤍' : '🖤';
+        }
+
+        function updateBackLinkColor() {
+            if (body.classList.contains('dark-mode')) {
+                backLink.style.color = 'white';
+                backLink.style.borderColor = 'white';
+            } else {
+                backLink.style.color = '#333';
+                backLink.style.borderColor = '#333';
+            }
+        }
+
+        updateThemeToggleIcon();
+        updateHeart();
+        updateBackLinkColor();
+    </script>
+</body>
+</html>

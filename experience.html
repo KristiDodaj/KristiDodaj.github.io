@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kristi Dodaj - Experience</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="icon" href="favicon.png" type="image/x-icon">
+    <style>
+        :root {
+            --bg-gradient-dark: linear-gradient(to right, #2c2c2c, #6e6e6e);
+            --bg-gradient-light: linear-gradient(to right, #f0f0f0, #ffffff);
+            --text-color-dark: #ffffff;
+            --text-color-light: #333333;
+            --timeline-color: #333333;
+            --card-bg-dark: rgba(255, 255, 255, 0.1);
+            --card-bg-light: rgba(255, 255, 255, 0.9);
+            --card-border-light: #d1d1d1;
+            --card-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        body {
+            font-family: 'Roboto Mono', monospace;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+            transition: background 0.3s ease, color 0.3s ease;
+        }
+
+        body.dark-mode {
+            background: var(--bg-gradient-dark);
+            color: var(--text-color-dark);
+        }
+
+        body.light-mode {
+            background: var(--bg-gradient-light);
+            color: var(--text-color-light);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            padding: 2rem;
+            box-sizing: border-box;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .timeline {
+            position: relative;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 4px;
+            height: 100%;
+            background: var(--timeline-color);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin: 2rem 0;
+            padding-left: calc(50% + 2px);
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+        }
+
+        .timeline-item:nth-child(even) {
+            padding-left: 0;
+            padding-right: calc(50% + 2px);
+            justify-content: flex-end;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            background: var(--timeline-color);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+        }
+
+        .timeline-item-content {
+            position: relative;
+            padding: 1.5rem;
+            border-radius: 8px;
+            width: calc(100% - 2px);
+            max-width: 400px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .dark-mode .timeline-item-content {
+            background-color: var(--card-bg-dark);
+        }
+
+        .light-mode .timeline-item-content {
+            background-color: var(--card-bg-light);
+            border: 1px solid var(--card-border-light);
+        }
+
+        .timeline-item-content h2 {
+            margin-top: 0;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-item-content p {
+            margin-bottom: 0;
+            font-size: 1rem;
+            line-height: 1.5;
+        }
+
+        .timeline-item-content:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--card-shadow);
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            font-size: 30px;
+            cursor: pointer;
+            z-index: 1000;
+            opacity: 0;
+            animation: fadeIn 0.5s ease-out forwards;
+            animation-delay: 1s;
+        }
+
+        .back-link {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            font-size: 1rem;
+            text-decoration: none;
+            color: inherit;
+            background-color: transparent;
+            border: 2px solid currentColor;
+            padding: 5px 10px;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            overflow: hidden;
+            z-index: 1;
+            opacity: 0;
+            animation: fadeIn 0.5s ease-out forwards;
+            animation-delay: 1s;
+            display: flex;
+            align-items: center;
+        }
+
+        .back-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            z-index: -1;
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease;
+        }
+
+        .back-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .back-link:hover::before {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .timeline::before {
+                left: 0;
+                background: #333333;
+            }
+            .timeline-item {
+                padding-left: 32px;
+                padding-right: 0;
+                justify-content: flex-start;
+                margin: 1rem 0;
+            }
+            .timeline-item:nth-child(even) {
+                padding-left: 32px;
+                padding-right: 0;
+                justify-content: flex-start;
+            }
+            .timeline-item::before {
+                left: 0;
+                background: #333333;
+            }
+            .timeline-item-content {
+                width: calc(100% - 32px);
+                max-width: none;
+            }
+            .back-link {
+                display: none;
+            }
+            .theme-toggle {
+                top: 20px;
+                right: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="theme-toggle" id="theme-toggle-btn">☽</div>
+    <a href="index.html" class="back-link">BACK</a>
+    
+    <div class="container">
+        <h1>Experience</h1>
+        <ul class="timeline">
+            <li class="timeline-item">
+                <div class="timeline-item-content">
+                    <h2>2021 - University of Toronto 🎓</h2>
+                    <p>Began my Computer Science studies at the University of Toronto, developing a strong foundation on the theoretical side and large scale software development.</p>
+                </div>
+            </li>
+            <li class="timeline-item">
+                <div class="timeline-item-content">
+                    <h2>Summer 2023 - SWE Internship at Wealthsimple 💰</h2>
+                    <p>Ledger Management Team (Processing transaction data)</p>
+                </div>
+            </li>
+            <li class="timeline-item">
+                <div class="timeline-item-content">
+                    <h2>Winter 2024 - SWE Internship at Wealthsimple ✅</h2>
+                    <p>Onboarding Requirements Team (Onboarding flows, integrating AI tooling for front-end testing)</p>
+                </div>
+            </li>
+            <li class="timeline-item">
+                <div class="timeline-item-content">
+                    <h2>Fall 2024 - Incoming SWE Internship @Sun Life 🌞</h2>
+                    <p>API & Integration Team</p>
+                </div>
+            </li>
+            <li class="timeline-item">
+                <div class="timeline-item-content">
+                    <h2>Seeking Winter/Summer 2025 Internships🤗</h2>
+                    <p>Feel free to reach out!</p>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <script>
+        const body = document.body;
+        const themeToggleBtn = document.getElementById('theme-toggle-btn');
+        const backLink = document.querySelector('.back-link');
+
+        function loadTheme() {
+            const savedTheme = localStorage.getItem('theme') || 'dark-mode';
+            body.className = savedTheme;
+            updateThemeToggleIcon();
+        }
+
+        function toggleTheme() {
+            body.classList.toggle('dark-mode');
+            body.classList.toggle('light-mode');
+            updateThemeToggleIcon();
+            localStorage.setItem('theme', body.className);
+        }
+
+        function updateThemeToggleIcon() {
+            themeToggleBtn.textContent = body.classList.contains('dark-mode') ? '☽' : '☀️';
+        }
+
+        themeToggleBtn.addEventListener('click', toggleTheme);
+
+        loadTheme();
+    </script>
+</body>
+</html>
