@@ -120,6 +120,7 @@
             justify-content: center;
             gap: 20px;
             margin-top: 1.5rem;
+            flex-wrap: nowrap;
         }
         .button-link {
             display: inline-block;
@@ -134,6 +135,7 @@
             position: relative;
             overflow: hidden;
             z-index: 1;
+            white-space: nowrap;
         }
         .button-link::before {
             content: '';
@@ -167,10 +169,11 @@
         .light-mode .button-link:hover {
             color: #333;
         }
-        .line-top, .line-bottom {
+        /* Add styles for showing/hiding button text */
+        .button-link .short-text {
             display: none;
         }
-        @media (max-width: 767px) {
+        @media (max-width: 600px) {
             .sidebar {
                 left: 15px;
                 top: 15px;
@@ -185,6 +188,21 @@
             .sidebar a:first-child img {
                 width: 32px;
                 height: 32px;
+            }
+            /* Hide full text and show short text on small screens */
+            .button-link .full-text {
+                display: none;
+            }
+            .button-link .short-text {
+                display: inline;
+            }
+            /* Adjust button font size and padding on small screens */
+            .button-link {
+                font-size: 0.9rem;
+                padding: 8px 10px;
+            }
+            .button-container {
+                gap: 10px;
             }
         }
 
@@ -247,7 +265,7 @@
                 height: calc(50% - 110px);
             }
         }
-        
+
         @keyframes fadeInUp {
             to {
                 opacity: 1;
@@ -294,9 +312,18 @@
         </div>
         <p>Hi there 👋 I'm a CS student @University of Toronto, navigating the exciting world of software engineering and tech. Curious about what I'm up to? Check out my portfolio or shoot me an email or LinkedIn message!</p>
         <div class="button-container">
-            <a href="projects.html" class="button-link">VIEW MY PROJECTS</a>
-            <a href="snake.html" class="button-link">SIDE QUEST</a>
-            <a href="experience.html" class="button-link">VIEW MY EXPERIENCE</a>
+            <a href="projects.html" class="button-link">
+                <span class="full-text">VIEW MY PROJECTS</span>
+                <span class="short-text">PROJECTS</span>
+            </a>
+            <a href="snake.html" class="button-link">
+                <span class="full-text">SIDE QUEST</span>
+                <span class="short-text">GAME</span>
+            </a>
+            <a href="experience.html" class="button-link">
+                <span class="full-text">VIEW MY EXPERIENCE</span>
+                <span class="short-text">EXPERIENCE</span>
+            </a>
         </div>
     </div>
     <div class="footer">
