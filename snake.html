@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snake Game</title>
+    <style>
+        html, body {
+            height: 100%;
+            margin: 0;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center; 
+            align-items: center;     
+            background: linear-gradient(45deg, #2c2c2c, #6e6e6e);
+            color: #fff;
+            font-family: 'Roboto Mono', monospace;
+            transition: background 0.3s ease, color 0.3s ease;
+            opacity: 0; 
+            animation: fadeIn 1s forwards;
+        }
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+        body.dark-mode {
+            background: linear-gradient(to right, #2c2c2c, #6e6e6e);
+            color: white;
+        }
+        body.light-mode {
+            background: linear-gradient(to right, #f0f0f0, #ffffff);
+            color: #333;
+        }
+
+        .game-container {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            opacity: 0; 
+            animation: fadeIn 1s forwards 0.5s; 
+        }
+
+        canvas {
+            background-color: #000;
+            border: 3px solid #6e6e6e;
+            box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.2);
+            display: block;
+            margin: 0 auto;
+        }
+
+        .score {
+            font-size: 2rem;
+            font-weight: bold;
+            margin-top: 20px;
+            text-align: center;
+            opacity: 0; 
+            animation: fadeIn 1s forwards 1s; 
+        }
+
+        .back-button {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            font-size: 1rem;
+            padding: 10px 20px;
+            border: 2px solid white;
+            background: transparent;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+            overflow: hidden;
+            z-index: 10;
+            display: inline-block;
+            cursor: pointer;
+            opacity: 0; 
+            animation: fadeIn 1s forwards 1.5s; 
+        }
+
+        body.light-mode .back-button {
+            color: black;
+            border-color: black;
+        }
+
+        .back-button:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .back-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            z-index: -1;
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease;
+        }
+
+        body.light-mode .back-button:hover {
+            background-color: rgba(0, 0, 0, 0.1);
+        }
+
+        .back-button:hover::before {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            font-size: 30px;
+            cursor: pointer;
+            opacity: 0; 
+            animation: fadeIn 1s forwards 1.5s;
+        }
+
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7); 
+            display: none; 
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal {
+            background: #1e1e1e;
+            padding: 40px;
+            border-radius: 10px;
+            text-align: center;
+            color: #fff;
+            font-family: 'Roboto Mono', monospace;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            max-width: 90%;
+            margin: 0 20px;
+        }
+
+        body.light-mode .modal {
+            background: #fff;
+            color: #333;
+        }
+
+        .modal button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: #00ff7f;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            color: #000;
+            font-weight: bold;
+            transition: background 0.3s ease;
+        }
+
+        .modal button:hover {
+            background: #00cc66;
+        }
+
+        .controls {
+            display: none; 
+            opacity: 0;
+            animation: fadeIn 1s forwards 1s; 
+        }
+
+        /* Footer Styles */
+        .footer {
+            position: fixed;
+            bottom: 20px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 0.9rem;
+            opacity: 0;
+            animation: fadeIn 0.5s ease-out forwards;
+            animation-delay: 3s;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            canvas {
+                width: 300px;
+                height: 300px;
+            }
+            .score {
+                font-size: 1.5rem;
+                margin-top: 20px;
+            }
+            .modal {
+                padding: 30px;
+            }
+            .back-button {
+                font-size: 0.9rem;
+                padding: 8px 16px;
+            }
+            .theme-toggle {
+                font-size: 24px;
+            }
+            .controls {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                margin-top: 20px;
+            }
+            .controls button {
+                width: 60px;
+                height: 60px;
+                font-size: 24px;
+                margin: 5px;
+                background: #00ff7f;
+                border: none;
+                border-radius: 5px;
+                color: #000;
+                font-weight: bold;
+                cursor: pointer;
+                transition: background 0.3s ease;
+            }
+            .controls button:active {
+                background: #00cc66;
+            }
+            .controls div {
+                display: flex;
+            }
+        }
+    </style>
+</head>
+<body class="dark-mode">
+    <a href="index.html" class="back-button">Back</a>
+    <div class="theme-toggle" id="theme-toggle-btn">☽</div>
+    <div class="game-container">
+        <canvas id="snakeGame" width="400" height="400"></canvas>
+        <div class="modal-overlay" id="modal-overlay">
+            <div class="modal" id="modal">
+                <p id="modal-message"></p>
+                <button id="restart-button">Play Again</button>
+            </div>
+        </div>
+        
+        <div class="controls">
+            <button id="up-button">↑</button>
+            <div>
+                <button id="left-button">←</button>
+                <button id="down-button">↓</button>
+                <button id="right-button">→</button>
+            </div>
+        </div>
+    </div>
+    <div class="score">Score: <span id="liveScore">0</span></div>
+
+    <div class="footer">
+        Made with <span id="heart">🤍</span> by Kristi Dodaj
+    </div>
+
+    <script>
+        const canvas = document.getElementById("snakeGame");
+        const ctx = canvas.getContext("2d");
+
+        let snake = []; 
+        let food = {};  
+        let box = 20;
+        let canvasSize = 400;
+
+        function adjustCanvasSize() {
+            if (window.innerWidth < 600) {
+                canvas.width = 300;
+                canvas.height = 300;
+                box = 15;
+                canvasSize = 300;
+            } else {
+                canvas.width = 400;
+                canvas.height = 400;
+                box = 20;
+                canvasSize = 400;
+            }
+            resetGamePositions();
+        }
+
+        function resetGamePositions() {
+            snake = [{
+                x: Math.floor(canvas.width / (2 * box)) * box,
+                y: Math.floor(canvas.height / (2 * box)) * box
+            }];
+            food = {
+                x: Math.floor(Math.random() * (canvas.width / box)) * box,
+                y: Math.floor(Math.random() * (canvas.height / box)) * box
+            };
+        }
+
+        adjustCanvasSize();
+        window.addEventListener('resize', adjustCanvasSize);
+
+        let direction = null;
+        let score = 0;
+        let gameOver = false;
+
+        const liveScore = document.getElementById('liveScore');
+        const modalOverlay = document.getElementById('modal-overlay');
+        const modalMessage = document.getElementById('modal-message');
+        const restartButton = document.getElementById('restart-button');
+
+        document.addEventListener("keydown", setDirection);
+        restartButton.addEventListener('click', restartGame);
+
+        // Mobile controls
+        const upButton = document.getElementById('up-button');
+        const downButton = document.getElementById('down-button');
+        const leftButton = document.getElementById('left-button');
+        const rightButton = document.getElementById('right-button');
+
+        upButton && upButton.addEventListener('click', () => {
+            if (direction !== "DOWN") direction = "UP";
+        });
+        downButton && downButton.addEventListener('click', () => {
+            if (direction !== "UP") direction = "DOWN";
+        });
+        leftButton && leftButton.addEventListener('click', () => {
+            if (direction !== "RIGHT") direction = "LEFT";
+        });
+        rightButton && rightButton.addEventListener('click', () => {
+            if (direction !== "LEFT") direction = "RIGHT";
+        });
+
+        function setDirection(event) {
+            const key = event.keyCode;
+            if ((key == 37 || key == 65) && direction !== "RIGHT") direction = "LEFT";
+            else if ((key == 38 || key == 87) && direction !== "DOWN") direction = "UP";
+            else if ((key == 39 || key == 68) && direction !== "LEFT") direction = "RIGHT";
+            else if ((key == 40 || key == 83) && direction !== "UP") direction = "DOWN";
+        }
+
+        function collision(newHead, snake) {
+            for (let i = 0; i < snake.length; i++) {
+                if (newHead.x == snake[i].x && newHead.y == snake[i].y) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        function showEndMessage(won) {
+            modalOverlay.style.display = 'flex';
+            const messages = won
+                ? ["You're a snake charmer!", "Winner winner, snake dinner!", "You slithered to victory!"]
+                : ["Oops, you hit the wall!", "Game over, snake out of luck!", "Better luck next time!"];
+            modalMessage.textContent = messages[Math.floor(Math.random() * messages.length)];
+
+            if (document.body.classList.contains('light-mode')) {
+                modal.classList.add('light-theme');
+            } else {
+                modal.classList.remove('light-theme');
+            }
+        }
+
+        function drawGame() {
+            if (gameOver) return;
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            for (let i = 0; i < snake.length; i++) {
+                ctx.fillStyle = (i === 0) ? "#00ff7f" : "#FFF";
+                ctx.fillRect(snake[i].x, snake[i].y, box, box);
+            }
+
+            ctx.fillStyle = "#ff3b3b";
+            ctx.fillRect(food.x, food.y, box, box);
+
+            if (direction) {
+                let snakeX = snake[0].x;
+                let snakeY = snake[0].y;
+
+                if (direction === "LEFT") snakeX -= box;
+                if (direction === "UP") snakeY -= box;
+                if (direction === "RIGHT") snakeX += box;
+                if (direction === "DOWN") snakeY += box;
+
+                // Wall collision logic (game over if snake hits wall)
+                if (snakeX < 0 || snakeY < 0 || snakeX >= canvas.width || snakeY >= canvas.height) {
+                    gameOver = true;
+                    showEndMessage(false);
+                    return;
+                }
+
+                if (collision({ x: snakeX, y: snakeY }, snake)) {
+                    gameOver = true;
+                    showEndMessage(false);
+                    return;
+                }
+
+                if (snakeX == food.x && snakeY == food.y) {
+                    score++;
+                    liveScore.textContent = score;
+                    food = {
+                        x: Math.floor(Math.random() * (canvas.width / box)) * box,
+                        y: Math.floor(Math.random() * (canvas.height / box)) * box
+                    };
+
+                    if (score === 10) {
+                        gameOver = true;
+                        showEndMessage(true);
+                        return;
+                    }
+                } else {
+                    snake.pop();
+                }
+
+                let newHead = {
+                    x: snakeX,
+                    y: snakeY
+                };
+
+                snake.unshift(newHead);
+            }
+
+            if (!gameOver) {
+                setTimeout(() => {
+                    requestAnimationFrame(drawGame);
+                }, 100);
+            }
+        }
+
+        function restartGame() {
+            modalOverlay.style.display = 'none';
+            score = 0;
+            liveScore.textContent = score;
+            direction = null;
+            gameOver = false;
+            adjustCanvasSize(); 
+            drawGame();
+        }
+
+        drawGame();
+
+        const body = document.body;
+        const themeToggleBtn = document.getElementById('theme-toggle-btn');
+        const heart = document.getElementById('heart');
+
+        function loadTheme() {
+            const savedTheme = localStorage.getItem('theme') || 'dark-mode';
+            body.className = savedTheme;
+            updateThemeToggleIcon();
+            updateHeart();
+        }
+
+        function toggleTheme() {
+            body.classList.toggle('dark-mode');
+            body.classList.toggle('light-mode');
+            updateThemeToggleIcon();
+            updateHeart();
+            localStorage.setItem('theme', body.className);
+        }
+
+        function updateThemeToggleIcon() {
+            themeToggleBtn.textContent = body.classList.contains('dark-mode') ? '☽' : '☀️';
+        }
+
+        function updateHeart() {
+            heart.textContent = body.classList.contains('dark-mode') ? '🤍' : '🖤';
+        }
+
+        themeToggleBtn.addEventListener('click', toggleTheme);
+
+        loadTheme();
+    </script>
+</body>
+</html>

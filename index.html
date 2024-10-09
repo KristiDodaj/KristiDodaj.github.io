@@ -295,6 +295,7 @@
         <p>Hi there 👋 I'm a CS student @University of Toronto, navigating the exciting world of software engineering and tech. Curious about what I'm up to? Check out my portfolio or shoot me an email or LinkedIn message!</p>
         <div class="button-container">
             <a href="projects.html" class="button-link">VIEW MY PROJECTS</a>
+            <a href="snake.html" class="button-link">SIDE QUEST</a>
             <a href="experience.html" class="button-link">VIEW MY EXPERIENCE</a>
         </div>
     </div>
@@ -323,7 +324,6 @@
         const resumeIcon = document.getElementById('resume-icon');
         const heart = document.getElementById('heart');
 
-        // Load theme from localStorage
         const savedTheme = localStorage.getItem('theme');
         if (savedTheme) {
             body.className = savedTheme;
@@ -337,7 +337,6 @@
             updateThemeToggleIcon();
             updateIcons();
             updateHeart();
-            // Save theme to localStorage
             localStorage.setItem('theme', body.className);
         });
 
