@@ -55,7 +55,7 @@ function Home() {
     if (showWelcome) {
       const interval = setInterval(() => {
         createStar();
-      }, 1000); // Reduced from 2000 to 1000ms for more frequent stars
+      }, 1000);
       return () => clearInterval(interval);
     }
   }, [showWelcome]);
