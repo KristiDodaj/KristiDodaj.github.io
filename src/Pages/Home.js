@@ -55,7 +55,7 @@ function Home() {
     if (showWelcome) {
       const interval = setInterval(() => {
         createStar();
-      }, 2000);
+      }, 1000); // Reduced from 2000 to 1000ms for more frequent stars
       return () => clearInterval(interval);
     }
   }, [showWelcome]);
@@ -102,6 +102,9 @@ function Home() {
             <button className="void-btn" onClick={() => navigate('/projects')}>
               Projects
             </button>
+          </div>
+          <div className="footer">
+            Made with 🤍 by Kristi Dodaj
           </div>
         </div>
       )}
