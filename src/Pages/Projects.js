@@ -36,18 +36,51 @@ function Projects() {
   const navigate = useNavigate();
   
   useEffect(() => {
+    // Enhanced shooting star creation
     const createShootingStar = () => {
       const star = document.createElement('div');
       star.className = 'shooting-star-projects';
+      
+      // Randomize starting position more widely
       star.style.left = `${Math.random() * window.innerWidth}px`;
       star.style.top = `${Math.random() * window.innerHeight}px`;
-      document.querySelector('.shooting-star-container').appendChild(star);
       
+      // Randomize the angle of trajectory
+      const angle = Math.random() * 45 + 22.5; // Range between 22.5 and 67.5 degrees
+      star.style.setProperty('--angle', `${angle}deg`);
+      
+      document.querySelector('.projects-container').appendChild(star);
       setTimeout(() => star.remove(), 2000);
     };
 
-    const interval = setInterval(createShootingStar, 3000);
-    return () => clearInterval(interval);
+    // Add asteroid creation
+    const createAsteroid = () => {
+      const asteroid = document.createElement('div');
+      asteroid.className = 'asteroid-projects';
+      
+      // Random size between 10px and 30px
+      const size = Math.random() * 20 + 10;
+      asteroid.style.width = `${size}px`;
+      asteroid.style.height = `${size}px`;
+      
+      // Random starting position outside viewport
+      const startX = -100;
+      const startY = Math.random() * window.innerHeight;
+      asteroid.style.left = `${startX}px`;
+      asteroid.style.top = `${startY}px`;
+      
+      document.querySelector('.projects-container').appendChild(asteroid);
+      setTimeout(() => asteroid.remove(), 20000);
+    };
+
+    // Create stars and asteroids at intervals
+    const starInterval = setInterval(createShootingStar, 500);
+    const asteroidInterval = setInterval(createAsteroid, 5000);
+
+    return () => {
+      clearInterval(starInterval);
+      clearInterval(asteroidInterval);
+    };
   }, []);
 
   const handleBack = () => {
@@ -66,7 +99,7 @@ function Projects() {
         <button className="void-btn back-btn" onClick={handleBack}>
           ← Back
         </button>
-        <h1>Projects</h1>
+        <h1>PROJECTS</h1>
       </div>
       <div className="projects-grid">
         {projectData.map((project, index) => (

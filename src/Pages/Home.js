@@ -42,21 +42,54 @@ function Home() {
   const createStar = () => {
     const star = document.createElement('div');
     star.className = 'shooting-star';
-
+    
+    // Randomize starting position more widely
     star.style.left = `${Math.random() * window.innerWidth}px`;
     star.style.top = `${Math.random() * window.innerHeight}px`;
     
+    // Randomize the angle of trajectory
+    const angle = Math.random() * 45 + 22.5; // Range between 22.5 and 67.5 degrees
+    star.style.setProperty('--angle', `${angle}deg`);
+    
     document.querySelector('.page-container').appendChild(star);
+    setTimeout(() => star.remove(), 2000); // Increased from 1000
+  };
 
-    setTimeout(() => star.remove(), 1000);
+  const createAsteroid = () => {
+    const asteroid = document.createElement('div');
+    asteroid.className = 'asteroid';
+    
+    // Random size between 10px and 30px
+    const size = Math.random() * 20 + 10;
+    asteroid.style.width = `${size}px`;
+    asteroid.style.height = `${size}px`;
+    
+    // Random starting position outside viewport
+    const startX = -100;
+    const startY = Math.random() * window.innerHeight;
+    asteroid.style.left = `${startX}px`;
+    asteroid.style.top = `${startY}px`;
+    
+    document.querySelector('.page-container').appendChild(asteroid);
+    setTimeout(() => asteroid.remove(), 20000);
   };
 
   useEffect(() => {
     if (showWelcome) {
-      const interval = setInterval(() => {
+      // Create stars more frequently
+      const starInterval = setInterval(() => {
         createStar();
-      }, 1000);
-      return () => clearInterval(interval);
+      }, 500); // Decreased from 1000
+
+      // Create asteroids
+      const asteroidInterval = setInterval(() => {
+        createAsteroid();
+      }, 5000);
+
+      return () => {
+        clearInterval(starInterval);
+        clearInterval(asteroidInterval);
+      };
     }
   }, [showWelcome]);
 

@@ -41,6 +41,7 @@ const experienceData = [
   {
     title: "Software Engineer Intern",
     company: "Cohere",
+
     period: "Winter 2025",
     location: "Toronto, ON",
     logo: cohereLogo
@@ -54,23 +55,42 @@ const experienceData = [
   },
 ];
 
-function ShootingStars() {
+function GalaxyElements() {
   useEffect(() => {
+    // Existing shooting star logic
     const createStar = () => {
       const star = document.createElement('div');
       star.className = 'shooting-star';
       star.style.left = `${Math.random() * window.innerWidth}px`;
       star.style.top = `${Math.random() * window.innerHeight}px`;
       document.querySelector('.experience-container').appendChild(star);
-      
       setTimeout(() => star.remove(), 2000);
     };
 
-    const interval = setInterval(createStar, 3000);
-    return () => clearInterval(interval);
+    // New comet logic
+    const createComet = () => {
+      const comet = document.createElement('div');
+      comet.className = 'comet';
+      document.querySelector('.experience-container').appendChild(comet);
+      setTimeout(() => comet.remove(), 8000);
+    };
+
+    const starInterval = setInterval(createStar, 2000);
+    const cometInterval = setInterval(createComet, 8000);
+
+    return () => {
+      clearInterval(starInterval);
+      clearInterval(cometInterval);
+    };
   }, []);
 
-  return <div className="shooting-stars-container" />;
+  return (
+    <>
+      <div className="nebula nebula-1"></div>
+      <div className="nebula nebula-2"></div>
+      <div className="shooting-stars-container" />
+    </>
+  );
 }
 
 function Experience() {
@@ -85,12 +105,12 @@ function Experience() {
       <div className="planet planet-1"></div>
       <div className="planet planet-2"></div>
       <div className="planet planet-3"></div>
-      <ShootingStars />
+      <GalaxyElements />
       <div className="experience-header">
         <button className="void-btn back-btn" onClick={handleBack}>
           ← Back
         </button>
-        <h1>Experience</h1>
+        <h1>EXPERIENCE</h1>
       </div>
       <div className="timeline">
         {experienceData.map((exp, index) => (
