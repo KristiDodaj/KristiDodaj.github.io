@@ -14,25 +14,11 @@ function Home() {
   useEffect(() => {
     if (location.state?.from === 'projects' || location.state?.from === 'experience') {
       setShowWelcome(true);
+      setIsEntering(false);
     }
   }, [location]);
 
-  useEffect(() => {
-    localStorage.removeItem('hasVisited');
-
-    const handleUnload = () => {
-      localStorage.removeItem('hasVisited');
-    };
-
-    window.addEventListener('beforeunload', handleUnload);
-
-    return () => {
-      window.removeEventListener('beforeunload', handleUnload);
-    };
-  }, []);
-
   const enterHole = () => {
-    localStorage.setItem('hasVisited', 'true');
     setIsEntering(true);
     setTimeout(() => {
       setShowWelcome(true);
