@@ -25,6 +25,12 @@ const projectData = [
     github: "https://github.com/KristiDodaj/System-Monitoring-Tool"
   },
   {
+    title: "Reverse Proxy 🔄",
+    description: "A basic HTTP reverse proxy server written in Go with features for load balancing, fault tolerance, and monitoring.",
+    tech: ["Go"],
+    github: "https://github.com/KristiDodaj/HTTP-Reverse-Proxy"
+  },
+  {
     title: "Recap 🚨",
     description: "An app providing users with a 24-hour recap of the most current and accurate events around the world.",
     tech: ["JavaScript", "React Native", "Node.js", "Express.js", "Firebase"],
