@@ -143,12 +143,21 @@
   animation: fadeIn 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards;
   max-width: 700px;
   padding: 30px 20px;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(255, 255, 255, 0.05);
   border-radius: 15px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 2px solid rgba(255, 255, 255, 0.3);
   width: 90%;
   box-sizing: border-box;
-  backdrop-filter: none;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.welcome-text:hover {
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4),
+              0 0 20px rgba(255, 255, 255, 0.1);
+  transform: translate(-50%, -51%);
 }
 
 .welcome-text h1 {
@@ -211,8 +220,10 @@
 }
 
 .void-btn:hover {
-  border-color: rgba(255, 255, 255, 0.8);
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4),
+              0 0 20px rgba(255, 255, 255, 0.1);
   transform: translateY(-2px);
 }
 
