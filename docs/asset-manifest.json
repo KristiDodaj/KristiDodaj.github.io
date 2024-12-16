@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/static/css/main.1d46cf1d.css",
+    "main.css": "/static/css/main.0976ed75.css",
     "main.js": "/static/js/main.6ea71d8a.js",
     "static/media/WS.png": "/static/media/WS.e54623d0707273c9a60d.png",
     "static/media/uoft.png": "/static/media/uoft.ee74d3c1876092301d45.png",
@@ -8,11 +8,11 @@
     "static/media/Asana.png": "/static/media/Asana.a6f39c483e99c5d801f6.png",
     "static/media/SunLife.png": "/static/media/SunLife.27565236f3a6ea558bc2.png",
     "index.html": "/index.html",
-    "main.1d46cf1d.css.map": "/static/css/main.1d46cf1d.css.map",
+    "main.0976ed75.css.map": "/static/css/main.0976ed75.css.map",
     "main.6ea71d8a.js.map": "/static/js/main.6ea71d8a.js.map"
   },
   "entrypoints": [
-    "static/css/main.1d46cf1d.css",
+    "static/css/main.0976ed75.css",
     "static/js/main.6ea71d8a.js"
   ]
 }
