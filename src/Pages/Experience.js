@@ -39,7 +39,7 @@ const experienceData = [
     logo: slLogo
   },
   {
-    title: "Software Engineer Intern",
+    title: "Intern of Technical Staff",
     company: "Cohere",
 
     period: "Winter 2025",
