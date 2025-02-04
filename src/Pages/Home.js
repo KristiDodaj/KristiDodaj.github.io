@@ -1,7 +1,7 @@
 // src/Pages/Home.js
 import React, { useState, useEffect } from 'react';
 import './Home.css';
-import { FaGithub, FaLinkedinIn } from 'react-icons/fa';
+import { FaGithub, FaLinkedinIn, FaMediumM } from 'react-icons/fa'; // Add FaMediumM
 import { HiDocument } from 'react-icons/hi';
 import { useNavigate, useLocation } from 'react-router-dom';
 
@@ -100,6 +100,9 @@ function Home() {
             </a>
             <a href="https://linkedin.com/in/kristidodaj" target="_blank" rel="noopener noreferrer" className="social-icon">
               <FaLinkedinIn />
+            </a>
+            <a href="https://medium.com/@kristidodaj001" target="_blank" rel="noopener noreferrer" className="social-icon">
+              <FaMediumM />
             </a>
             <a href="https://drive.google.com/file/d/1IPavuS2KmWetHs12L9jgn9Ps0OkdyQBf/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="social-icon">
               <HiDocument />
