@@ -90,7 +90,7 @@ function Home() {
             <div className="text-prompt">Tap to enter the void...</div>
           )}
         </>
-      )}
+      )} 
       
       {showWelcome && (
         <div className="content-container">
