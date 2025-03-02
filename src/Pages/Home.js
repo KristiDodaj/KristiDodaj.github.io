@@ -104,7 +104,7 @@ function Home() {
             <a href="https://medium.com/@kristidodaj001" target="_blank" rel="noopener noreferrer" className="social-icon">
               <FaMediumM />
             </a>
-            <a href="https://drive.google.com/file/d/1IPavuS2KmWetHs12L9jgn9Ps0OkdyQBf/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="social-icon">
+            <a href="https://drive.google.com/file/d/1s7_503ni0Q22qzuvuI5eZ4H60LRSU8tK/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="social-icon">
               <HiDocument />
             </a>
           </div>
