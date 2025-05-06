@@ -1,7 +1,7 @@
 /* src/Pages/Projects.css */
 .projects-container {
   min-height: 100vh;
-  background: linear-gradient(to bottom, #000000, #090322);
+  background: linear-gradient(to bottom, #020204, #0a0a14); /* Darker, slightly bluer gradient */
   padding: 20px 20px 40px;
   color: white;
   position: relative;
@@ -16,71 +16,102 @@
   top: -50%;
   left: -50%;
   z-index: 0;
-  background-image: 
-    radial-gradient(2px 2px at 20px 30px, #fff, rgba(0,0,0,0)),
-    radial-gradient(2px 2px at 40px 70px, #fff, rgba(0,0,0,0)),
-    radial-gradient(2px 2px at 50px 160px, #fff, rgba(0,0,0,0)),
-    radial-gradient(2px 2px at 90px 40px, #fff, rgba(0,0,0,0)),
-    radial-gradient(2px 2px at 130px 80px, #fff, rgba(0,0,0,0));
-  background-repeat: repeat;
-  animation: twinkle 4s linear infinite;
+  background-image:
+    /* More subtle, smaller stars */
+    radial-gradient(0.5px 0.5px at 40px 60px, #aaa, rgba(0,0,0,0)),
+    radial-gradient(0.75px 0.75px at 20px 50px, #ccc, rgba(0,0,0,0)),
+    radial-gradient(1px 1px at 30px 100px, #fff, rgba(0,0,0,0)),
+    radial-gradient(0.5px 0.5px at 90px 40px, #bbb, rgba(0,0,0,0)),
+    radial-gradient(0.75px 0.75px at 130px 80px, #ddd, rgba(0,0,0,0)),
+    radial-gradient(0.5px 0.5px at 160px 120px, #ccc, rgba(0,0,0,0)),
+    /* Add more sparse stars */
+    radial-gradient(0.5px 0.5px at 250px 150px, #aaa, rgba(0,0,0,0)),
+    radial-gradient(0.75px 0.75px at 300px 50px, #bbb, rgba(0,0,0,0)),
+    radial-gradient(1px 1px at 350px 180px, #fff, rgba(0,0,0,0));
+  animation: starfield-projects 150s linear infinite; /* Slower animation, renamed */
+}
+
+.projects-container::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background:
+        /* More subtle nebula effects */
+        radial-gradient(circle at 20% 30%, rgba(50, 100, 200, 0.05) 0%, transparent 60%),
+        radial-gradient(circle at 80% 70%, rgba(150, 50, 100, 0.04) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(100, 150, 200, 0.03) 0%, transparent 70%);
+    pointer-events: none;
+    opacity: 0.7; /* Slightly reduce overall opacity */
+}
+
+@keyframes starfield-projects {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(-100%); /* Changed direction and distance */
+    }
 }
 
 .planet {
   position: absolute;
   border-radius: 50%;
-  opacity: 0.6;
-  filter: blur(1px);
+  opacity: 0.5; /* Reduced opacity */
+  filter: blur(2px); /* Increased blur */
+  mix-blend-mode: screen; /* Blend mode for better integration */
 }
 
 .planet-1 {
-  width: 100px;
-  height: 100px;
-  background: radial-gradient(circle at 30% 30%, #4b0082, #000);
+  width: 80px; /* Slightly smaller */
+  height: 80px;
+  background: radial-gradient(circle at 30% 30%, rgba(75, 0, 130, 0.6), transparent 70%); /* Adjusted gradient */
   top: 15%;
   right: 10%;
-  box-shadow: 0 0 50px rgba(75, 0, 130, 0.4);
-  animation: float 15s ease-in-out infinite;
+  box-shadow: 0 0 30px rgba(75, 0, 130, 0.3); /* Reduced shadow */
+  animation: float-projects 18s ease-in-out infinite; /* Slower animation, renamed */
 }
 
 .planet-2 {
-  width: 60px;
-  height: 60px;
-  background: radial-gradient(circle at 40% 40%, #800020, #000);
+  width: 50px; /* Slightly smaller */
+  height: 50px;
+  background: radial-gradient(circle at 40% 40%, rgba(128, 0, 32, 0.5), transparent 70%); /* Adjusted gradient */
   bottom: 20%;
   left: 15%;
-  box-shadow: 0 0 30px rgba(128, 0, 32, 0.4);
-  animation: float 12s ease-in-out infinite reverse;
+  box-shadow: 0 0 20px rgba(128, 0, 32, 0.3); /* Reduced shadow */
+  animation: float-projects 15s ease-in-out infinite reverse; /* Slower animation, renamed */
 }
 
 .planet-3 {
-  width: 75px;
-  height: 75px;
-  background: radial-gradient(circle at 35% 35%, #2a6e78, #000);
+  width: 60px; /* Slightly smaller */
+  height: 60px;
+  background: radial-gradient(circle at 35% 35%, rgba(42, 110, 120, 0.6), transparent 70%); /* Adjusted gradient */
   bottom: 30%;
   right: 25%;
-  box-shadow: 0 0 40px rgba(42, 110, 120, 0.4);
-  animation: float 18s ease-in-out infinite;
+  box-shadow: 0 0 25px rgba(42, 110, 120, 0.3); /* Reduced shadow */
+  animation: float-projects 22s ease-in-out infinite; /* Slower animation, renamed */
 }
 
 .planet-4 {
-  width: 45px;
-  height: 45px;
-  background: radial-gradient(circle at 45% 45%, #b76d68, #000);
+  width: 35px; /* Slightly smaller */
+  height: 35px;
+  background: radial-gradient(circle at 45% 45%, rgba(183, 109, 104, 0.5), transparent 70%); /* Adjusted gradient */
   top: 60%;
   right: 15%;
-  box-shadow: 0 0 30px rgba(183, 109, 104, 0.4);
-  animation: float 10s ease-in-out infinite reverse;
+  box-shadow: 0 0 15px rgba(183, 109, 104, 0.3); /* Reduced shadow */
+  animation: float-projects 13s ease-in-out infinite reverse; /* Slower animation, renamed */
 }
 
 .planet-5 {
-  width: 90px;
-  height: 90px;
-  background: radial-gradient(circle at 25% 25%, #614051, #000);
+  width: 70px; /* Slightly smaller */
+  height: 70px;
+  background: radial-gradient(circle at 25% 25%, rgba(97, 64, 81, 0.5), transparent 70%); /* Adjusted gradient */
   top: 25%;
   left: 20%;
-  box-shadow: 0 0 45px rgba(97, 64, 81, 0.4);
-  animation: float2 20s ease-in-out infinite;
+  box-shadow: 0 0 30px rgba(97, 64, 81, 0.3); /* Reduced shadow */
+  animation: float2-projects 25s ease-in-out infinite; /* Slower animation, renamed */
 }
 
 /* Shooting stars */
@@ -95,29 +126,20 @@
 
 .shooting-star-projects {
   position: absolute;
-  width: 4px;
-  height: 4px;
+  width: 2px; /* Slightly smaller */
+  height: 2px;
   background: white;
   border-radius: 50%;
-  animation: shoot-across 2s linear infinite;
+  animation: shoot-across-projects 2.5s linear infinite; /* Slightly slower, renamed */
   opacity: 0;
-  box-shadow: 
+  box-shadow:
+    0 0 8px #fff, /* Reduced glow */
     0 0 15px #fff,
-    0 0 30px #fff,
-    0 0 40px #fff;
+    0 0 20px #fff;
   z-index: 1;
 }
 
-@keyframes twinkle {
-  from {
-    transform: translateY(0);
-  }
-  to {
-    transform: translateY(-50%);
-  }
-}
-
-@keyframes float {
+@keyframes float-projects {
   0%, 100% {
     transform: translateY(0) rotate(0deg);
   }
@@ -126,7 +148,7 @@
   }
 }
 
-@keyframes shoot-across {
+@keyframes shoot-across-projects {
   0% {
     opacity: 1;
     transform: translate(0, 0) rotate(45deg) scale(0);
@@ -140,7 +162,7 @@
   }
 }
 
-@keyframes float2 {
+@keyframes float2-projects {
   0%, 100% {
     transform: translateY(0) rotate(0deg) translateX(0);
   }
@@ -286,31 +308,36 @@
 .projects-header {
   max-width: 1200px;
   margin: 0 auto 40px auto;
-  padding: 20px;
+  padding: 15px 20px; /* Adjusted padding */
   display: flex;
   align-items: center;
-  justify-content: center; /* Added for better centering */
+  justify-content: center;
   position: relative;
   z-index: 1;
+  /* Remove button-like background/border */
+  background: none;
+  border: none;
+  backdrop-filter: none;
+  box-shadow: none;
 }
 
 .projects-header h1 {
-  flex-grow: 0; /* Changed from 1 to 0 */
+  flex-grow: 0;
   text-align: center;
-  font-size: 2rem;
-  font-weight: 700;
-  letter-spacing: 3px;
-  color: white;
-  text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+  font-size: clamp(1.8rem, 4vw, 2.2rem); /* Slightly smaller font size */
+  font-weight: 600; /* Slightly less bold */
+  letter-spacing: 4px; /* Increased spacing */
+  color: rgba(255, 255, 255, 0.9); /* Slightly less bright */
+  text-shadow: 0 0 15px rgba(255, 255, 255, 0.2); /* More subtle shadow */
   margin: 0;
   font-family: 'Courier New', monospace;
-  /* Add button-like styling */
-  background: rgba(255, 255, 255, 0.05);
-  padding: 12px 50px;
-  border-radius: 30px;
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  transition: all 0.3s ease;
+  /* Remove button-like styling */
+  background: none; /* Remove background */
+  padding: 0; /* Remove padding */
+  border-radius: 0; /* Remove border-radius */
+  backdrop-filter: none; /* Remove backdrop-filter */
+  border: none; /* Remove border */
+  transition: none; /* Remove transitions */
 }
 
 .back-btn {
@@ -320,9 +347,16 @@
   border: 1px solid rgba(255, 255, 255, 0.2);
   padding: 8px 20px;
   font-size: 1rem;
+  /* Inherit void-btn styles for consistency if needed, or define separately */
+  color: white;
+  border-radius: 30px;
+  font-family: 'Courier New', monospace;
+  cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .back-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
   border-color: rgba(255, 255, 255, 0.4);
   transform: translateY(-2px);
   box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
@@ -347,10 +381,89 @@
   }
 }
 
+/* Add Nebula styles (similar to Experience page) */
+.nebula-projects {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(50px); /* Increased blur */
+  opacity: 0.1; /* Reduced opacity */
+  mix-blend-mode: screen;
+  pointer-events: none;
+  animation: pulse-nebula-projects 12s ease-in-out infinite; /* Slower animation, renamed */
+  z-index: 0; /* Ensure it's behind content */
+}
+
+.nebula-projects-1 {
+  width: 450px; /* Slightly larger */
+  height: 450px;
+  background: radial-gradient(circle at center, rgba(255, 107, 129, 0.8), transparent 75%); /* Adjusted color and transparency */
+  top: 10%;
+  left: -15%; /* Adjusted position */
+}
+
+.nebula-projects-2 {
+  width: 350px; /* Slightly larger */
+  height: 350px;
+  background: radial-gradient(circle at center, rgba(112, 161, 255, 0.7), transparent 75%); /* Adjusted color and transparency */
+  bottom: 15%; /* Adjusted position */
+  right: -10%; /* Adjusted position */
+  animation-delay: -6s; /* Offset animation */
+}
+
+@keyframes pulse-nebula-projects {
+  0%, 100% {
+    transform: scale(1) rotate(0deg);
+    opacity: 0.1; /* Match base opacity */
+  }
+  50% {
+    transform: scale(1.15) rotate(3deg); /* Reduced scale and rotation */
+    opacity: 0.15; /* Slightly increased opacity */
+  }
+}
+
 /* Update media queries for responsiveness */
 @media screen and (max-width: 768px) {
   .projects-header h1 {
-    font-size: 1.8rem;
-    padding: 8px 20px;
+    font-size: 1.8rem; /* Adjust for smaller screens */
+    letter-spacing: 3px;
+    padding: 0; /* Remove padding */
   }
+  .back-btn {
+    display: none; /* Hide back button on smaller screens */
+  }
+  /* Adjust planet sizes */
+  .planet-1 { width: 60px; height: 60px; }
+  .planet-2 { width: 40px; height: 40px; }
+  .planet-3 { width: 50px; height: 50px; }
+  .planet-4 { width: 30px; height: 30px; }
+  .planet-5 { width: 55px; height: 55px; }
+
+  /* Adjust nebula sizes */
+  .nebula-projects {
+    filter: blur(40px);
+    opacity: 0.08;
+  }
+  .nebula-projects-1 { width: 300px; height: 300px; }
+  .nebula-projects-2 { width: 250px; height: 250px; }
+}
+
+@media screen and (max-width: 480px) {
+  .projects-header h1 {
+    font-size: 1.6rem; /* Further adjust for smallest screens */
+    letter-spacing: 2px;
+  }
+  /* Adjust planet sizes */
+  .planet-1 { width: 40px; height: 40px; }
+  .planet-2 { width: 30px; height: 30px; }
+  .planet-3 { width: 35px; height: 35px; }
+  .planet-4 { width: 20px; height: 20px; }
+  .planet-5 { width: 40px; height: 40px; }
+
+  /* Adjust nebula sizes */
+  .nebula-projects {
+    filter: blur(30px);
+    opacity: 0.06;
+  }
+  .nebula-projects-1 { width: 200px; height: 200px; }
+  .nebula-projects-2 { width: 150px; height: 150px; }
 }

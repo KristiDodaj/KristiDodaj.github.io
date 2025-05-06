@@ -7,7 +7,13 @@ import { useNavigate } from 'react-router-dom';
 
 const projectData = [
   {
-    title: "HandGeastureCNN 🧠",
+    title: "NanoML 🧠",
+    description: "A lightweight machine learning library built from scratch in modern C++. It provides a clean, easy-to-use API for common machine learning tasks with a focus on educational value and flexibility for small to medium-sized datasets.",
+    tech: ["C++", "CMake"],
+    github: "https://github.com/KristiDodaj/NanoML"
+  },
+  {
+    title: "HandGeastureCNN 👋",
     description: "A Convolutional Neural Network (CNN) trained to identify hand gestures of numbers 1-9 from a dataset of 15,000 labeled images with an 88% accuracy.",
     tech: ["Python", "PyTorch", "Matplotlib"],
     github: "https://github.com/KristiDodaj/HandGestureCNN"

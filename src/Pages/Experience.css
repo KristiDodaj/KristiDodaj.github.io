@@ -1,7 +1,7 @@
 /* src/Pages/Experience.css */
 .experience-container {
     min-height: 100vh;
-    background: linear-gradient(to bottom, #000000, #111);
+    background: linear-gradient(to bottom, #020204, #0a0a14); /* Darker, slightly bluer gradient */
     padding: 20px 20px 40px;
     color: white;
     position: relative;
@@ -16,15 +16,19 @@
     top: -50%;
     left: -50%;
     z-index: 0;
-    background-image: 
-        radial-gradient(1px 1px at 40px 60px, #fff, rgba(0,0,0,0)),
-        radial-gradient(1.5px 1.5px at 20px 50px, #fff, rgba(0,0,0,0)),
-        radial-gradient(2px 2px at 30px 100px, #fff, rgba(0,0,0,0)),
-        radial-gradient(2.5px 2.5px at 100px 30px, #fff, rgba(0,0,0,0)),
-        radial-gradient(1.5px 1.5px at 200px 120px, #fff, rgba(0,0,0,0)),
-        radial-gradient(1px 1px at 150px 80px, #fff, rgba(0,0,0,0)),
-        radial-gradient(2px 2px at 250px 160px, #fff, rgba(0,0,0,0));
-    animation: starfield 100s linear infinite;
+    background-image:
+        /* More subtle, smaller stars */
+        radial-gradient(0.5px 0.5px at 40px 60px, #aaa, rgba(0,0,0,0)),
+        radial-gradient(0.75px 0.75px at 20px 50px, #ccc, rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 30px 100px, #fff, rgba(0,0,0,0)),
+        radial-gradient(0.5px 0.5px at 90px 40px, #bbb, rgba(0,0,0,0)),
+        radial-gradient(0.75px 0.75px at 130px 80px, #ddd, rgba(0,0,0,0)),
+        radial-gradient(0.5px 0.5px at 160px 120px, #ccc, rgba(0,0,0,0)),
+        /* Add more sparse stars */
+        radial-gradient(0.5px 0.5px at 250px 150px, #aaa, rgba(0,0,0,0)),
+        radial-gradient(0.75px 0.75px at 300px 50px, #bbb, rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 350px 180px, #fff, rgba(0,0,0,0));
+    animation: starfield 150s linear infinite; /* Slower animation */
 }
 
 .experience-container::after {
@@ -34,11 +38,13 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: 
-        radial-gradient(circle at 20% 30%, rgba(0, 150, 255, 0.08) 0%, transparent 50%),
-        radial-gradient(circle at 80% 70%, rgba(255, 100, 100, 0.08) 0%, transparent 40%),
-        radial-gradient(circle at 50% 50%, rgba(100, 200, 255, 0.05) 0%, transparent 60%);
+    background:
+        /* More subtle nebula effects */
+        radial-gradient(circle at 20% 30%, rgba(50, 100, 200, 0.05) 0%, transparent 60%),
+        radial-gradient(circle at 80% 70%, rgba(150, 50, 100, 0.04) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(100, 150, 200, 0.03) 0%, transparent 70%);
     pointer-events: none;
+    opacity: 0.7; /* Slightly reduce overall opacity */
 }
 
 @keyframes starfield {
@@ -46,22 +52,22 @@
         transform: translateY(0);
     }
     to {
-        transform: translateY(50%);
+        transform: translateY(-100%); /* Changed direction and distance */
     }
 }
 
 .shooting-star {
     position: absolute;
-    width: 3px;
-    height: 3px;
+    width: 2px; /* Slightly smaller */
+    height: 2px;
     background: white;
     border-radius: 50%;
-    animation: shoot 2s linear forwards;
+    animation: shoot 2.5s linear forwards; /* Slightly slower */
     z-index: 1;
-    box-shadow: 
-        0 0 10px #fff,
-        0 0 20px #fff,
-        0 0 30px #fff;
+    box-shadow:
+        0 0 8px #fff, /* Reduced glow */
+        0 0 15px #fff,
+        0 0 20px #fff;
 }
 
 @keyframes shoot {
@@ -81,31 +87,55 @@
 .experience-header {
     max-width: 1200px;
     margin: 0 auto 40px auto;
-    padding: 20px;
+    padding: 15px 20px; /* Adjusted padding */
     display: flex;
     align-items: center;
-    justify-content: center; /* Added for better centering */
+    justify-content: center;
     position: relative;
     z-index: 1;
+    /* Remove button-like background/border */
+    background: none;
+    border: none;
+    backdrop-filter: none;
+    box-shadow: none;
 }
 
 .experience-header h1 {
-    flex-grow: 0; /* Changed from 1 to 0 */
+    flex-grow: 0;
     text-align: center;
-    font-size: 2rem;
-    font-weight: 700;
-    letter-spacing: 3px;
-    color: white;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+    font-size: clamp(1.8rem, 4vw, 2.2rem); /* Slightly smaller font size */
+    font-weight: 600; /* Slightly less bold */
+    letter-spacing: 4px; /* Increased spacing */
+    color: rgba(255, 255, 255, 0.9); /* Slightly less bright */
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.2); /* More subtle shadow */
     margin: 0;
     font-family: 'Courier New', monospace;
-    /* Add button-like styling */
-    background: rgba(255, 255, 255, 0.05);
-    padding: 12px 40px;
-    border-radius: 30px;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    transition: all 0.3s ease;
+    /* Remove button-like styling */
+    padding: 0; /* Remove padding if any was implied */
+    border-radius: 0; /* Remove border-radius */
+    transition: none; /* Remove transitions */
+}
+
+.back-btn {
+  position: absolute;
+  left: 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 8px 20px;
+  font-size: 1rem;
+  /* Inherit void-btn styles for consistency if needed, or define separately */
+  color: white;
+  border-radius: 30px;
+  font-family: 'Courier New', monospace;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.back-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
 }
 
 .timeline {
@@ -283,38 +313,39 @@
 .planet {
     position: absolute;
     border-radius: 50%;
-    opacity: 0.7;
-    filter: blur(1px);
+    opacity: 0.5; /* Reduced opacity */
+    filter: blur(2px); /* Increased blur */
+    mix-blend-mode: screen; /* Blend mode for better integration */
 }
 
 .planet-1 {
-    width: 120px;
-    height: 120px;
-    background: radial-gradient(circle at 30% 30%, #1e4d8a, #000);
+    width: 100px; /* Slightly smaller */
+    height: 100px;
+    background: radial-gradient(circle at 30% 30%, rgba(30, 77, 138, 0.7), transparent 70%); /* Adjusted gradient */
     top: 15%;
     right: 10%;
-    box-shadow: 0 0 50px rgba(30, 77, 138, 0.4);
-    animation: float 15s ease-in-out infinite;
+    box-shadow: 0 0 40px rgba(30, 77, 138, 0.3); /* Reduced shadow */
+    animation: float 18s ease-in-out infinite; /* Slower animation */
 }
 
 .planet-2 {
-    width: 80px;
-    height: 80px;
-    background: radial-gradient(circle at 40% 40%, #8b4513, #000);
+    width: 70px; /* Slightly smaller */
+    height: 70px;
+    background: radial-gradient(circle at 40% 40%, rgba(139, 69, 19, 0.6), transparent 70%); /* Adjusted gradient */
     bottom: 20%;
     left: 15%;
-    box-shadow: 0 0 30px rgba(139, 69, 19, 0.4);
-    animation: float 12s ease-in-out infinite reverse;
+    box-shadow: 0 0 25px rgba(139, 69, 19, 0.3); /* Reduced shadow */
+    animation: float 15s ease-in-out infinite reverse; /* Slower animation */
 }
 
 .planet-3 {
-    width: 60px;
-    height: 60px;
-    background: radial-gradient(circle at 35% 35%, #4a766e, #000);
+    width: 50px; /* Slightly smaller */
+    height: 50px;
+    background: radial-gradient(circle at 35% 35%, rgba(74, 118, 110, 0.7), transparent 70%); /* Adjusted gradient */
     top: 40%;
     left: 25%;
-    box-shadow: 0 0 25px rgba(74, 118, 110, 0.4);
-    animation: float 18s ease-in-out infinite;
+    box-shadow: 0 0 20px rgba(74, 118, 110, 0.3); /* Reduced shadow */
+    animation: float 22s ease-in-out infinite; /* Slower animation */
 }
 
 @keyframes float {
@@ -332,7 +363,8 @@
   }
 
   .experience-header h1 {
-    font-size: 2rem;
+    font-size: 1.8rem; /* Adjust for smaller screens */
+    letter-spacing: 3px;
     text-align: center;
     width: 100%;
     padding: 8px 20px;
@@ -387,29 +419,37 @@
   }
 
   .planet-1 {
-    width: 80px;
-    height: 80px;
+    width: 70px;
+    height: 70px;
     top: 10%;
     right: 5%;
   }
 
   .planet-2 {
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     bottom: 15%;
     left: 10%;
   }
 
   .planet-3 {
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
     top: 50%;
     left: 15%;
   }
+  .nebula {
+    filter: blur(40px);
+    opacity: 0.08;
+  }
+  .nebula-1 { width: 300px; height: 300px; }
+  .nebula-2 { width: 250px; height: 250px; }
 }
 
 @media screen and (max-width: 480px) {
   .experience-header h1 {
+    font-size: 1.6rem; /* Further adjust for smallest screens */
+    letter-spacing: 2px;
   }
 
   .exp-content {
@@ -437,19 +477,25 @@
   }
 
   .planet-1 {
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
   }
 
   .planet-2 {
-    width: 45px;
-    height: 45px;
+    width: 40px;
+    height: 40px;
   }
 
   .planet-3 {
-    width: 30px;
-    height: 30px;
+    width: 25px;
+    height: 25px;
   }
+   .nebula {
+    filter: blur(30px);
+    opacity: 0.06;
+  }
+  .nebula-1 { width: 200px; height: 200px; }
+  .nebula-2 { width: 150px; height: 150px; }
 }
 
 /* Add to src/Pages/Experience.css */
@@ -457,28 +503,28 @@
 .nebula {
   position: absolute;
   border-radius: 50%;
-  filter: blur(40px);
-  opacity: 0.15;
+  filter: blur(50px); /* Increased blur */
+  opacity: 0.1; /* Reduced opacity */
   mix-blend-mode: screen;
   pointer-events: none;
-  animation: pulse-nebula 8s ease-in-out infinite;
+  animation: pulse-nebula 12s ease-in-out infinite; /* Slower animation */
 }
 
 .nebula-1 {
-  width: 400px;
-  height: 400px;
-  background: radial-gradient(circle at center, #ff6b81, transparent 70%);
+  width: 450px; /* Slightly larger */
+  height: 450px;
+  background: radial-gradient(circle at center, rgba(255, 107, 129, 0.8), transparent 75%); /* Adjusted color and transparency */
   top: 10%;
-  left: -10%;
+  left: -15%; /* Adjusted position */
 }
 
 .nebula-2 {
-  width: 300px;
-  height: 300px;
-  background: radial-gradient(circle at center, #70a1ff, transparent 70%);
-  bottom: 20%;
-  right: -5%;
-  animation-delay: -4s;
+  width: 350px; /* Slightly larger */
+  height: 350px;
+  background: radial-gradient(circle at center, rgba(112, 161, 255, 0.7), transparent 75%); /* Adjusted color and transparency */
+  bottom: 15%; /* Adjusted position */
+  right: -10%; /* Adjusted position */
+  animation-delay: -6s; /* Offset animation */
 }
 
 .comet {
@@ -523,10 +569,10 @@
 @keyframes pulse-nebula {
   0%, 100% {
     transform: scale(1) rotate(0deg);
-    opacity: 0.15;
+    opacity: 0.1; /* Match base opacity */
   }
   50% {
-    transform: scale(1.2) rotate(5deg);
-    opacity: 0.2;
+    transform: scale(1.15) rotate(3deg); /* Reduced scale and rotation */
+    opacity: 0.15; /* Slightly increased opacity */
   }
 }
