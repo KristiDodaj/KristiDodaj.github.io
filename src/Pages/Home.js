@@ -128,6 +128,22 @@ function Home() {
           <div className="footer">
             Made with 🤍 by Kristi Dodaj
           </div>
+          
+          {/* New Calendly Button */}
+          <a 
+            href="https://calendly.com/kristidodaj001/30min" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="calendly-button"
+          >
+            <div className="calendly-orbit">
+              <div className="calendly-planet">
+                <span>1:1</span>
+              </div>
+            </div>
+            <span className="calendly-text">Book a Chat</span>
+          </a>
+          
         </div>
       )}
     </div>
