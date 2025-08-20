@@ -1,4 +1,8 @@
+/* Experience Page - Revamped White Glow Glass Theme */
+
+/* Base Container */
 /* src/Pages/Experience.css */
+
 .experience-container {
     min-height: 100vh;
     background: linear-gradient(to bottom, #020204, #0a0a14); /* Darker, slightly bluer gradient */
@@ -7,75 +11,122 @@
     position: relative;
     overflow: hidden;
 }
+...existing code...
+.experience-container {
+  min-height: 100vh;
+  background: radial-gradient(circle at 20% 30%, #03030a, #000 65%);
+  padding: 20px 20px 60px;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
 
 .experience-container::before {
-    content: '';
-    position: absolute;
-    width: 200%;
-    height: 200%;
-    top: -50%;
-    left: -50%;
-    z-index: 0;
-    background-image:
-        /* More subtle, smaller stars */
-        radial-gradient(0.5px 0.5px at 40px 60px, #aaa, rgba(0,0,0,0)),
-        radial-gradient(0.75px 0.75px at 20px 50px, #ccc, rgba(0,0,0,0)),
-        radial-gradient(1px 1px at 30px 100px, #fff, rgba(0,0,0,0)),
-        radial-gradient(0.5px 0.5px at 90px 40px, #bbb, rgba(0,0,0,0)),
-        radial-gradient(0.75px 0.75px at 130px 80px, #ddd, rgba(0,0,0,0)),
-        radial-gradient(0.5px 0.5px at 160px 120px, #ccc, rgba(0,0,0,0)),
-        /* Add more sparse stars */
-        radial-gradient(0.5px 0.5px at 250px 150px, #aaa, rgba(0,0,0,0)),
-        radial-gradient(0.75px 0.75px at 300px 50px, #bbb, rgba(0,0,0,0)),
-        radial-gradient(1px 1px at 350px 180px, #fff, rgba(0,0,0,0));
-    animation: starfield 150s linear infinite; /* Slower animation */
+  content: '';
+  position: absolute;
+  width: 200%;
+  height: 200%;
+  top: -50%;
+  left: -50%;
+  z-index: 0;
+  background-image:
+    radial-gradient(1px 1px at 40px 60px, #fff, rgba(0,0,0,0)),
+    radial-gradient(1px 1px at 20px 50px, #ccc, rgba(0,0,0,0)),
+    radial-gradient(1px 1px at 30px 100px, #eee, rgba(0,0,0,0)),
+    radial-gradient(1px 1px at 90px 40px, #ddd, rgba(0,0,0,0)),
+    radial-gradient(1px 1px at 130px 80px, #fff, rgba(0,0,0,0)),
+    radial-gradient(1px 1px at 160px 120px, #bbb, rgba(0,0,0,0));
+  animation: starfield 140s linear infinite;
+  opacity: .7;
 }
 
 .experience-container::after {
-    content: '';
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background:
-        /* More subtle nebula effects */
-        radial-gradient(circle at 20% 30%, rgba(50, 100, 200, 0.05) 0%, transparent 60%),
-        radial-gradient(circle at 80% 70%, rgba(150, 50, 100, 0.04) 0%, transparent 50%),
-        radial-gradient(circle at 50% 50%, rgba(100, 150, 200, 0.03) 0%, transparent 70%);
-    pointer-events: none;
-    opacity: 0.7; /* Slightly reduce overall opacity */
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(circle at 15% 25%, rgba(255,255,255,0.08) 0%, transparent 60%),
+    radial-gradient(circle at 80% 70%, rgba(255,255,255,0.05) 0%, transparent 55%),
+    radial-gradient(circle at 50% 50%, rgba(255,255,255,0.04) 0%, transparent 70%);
+  pointer-events: none;
+  opacity: .65;
 }
 
-@keyframes starfield {
-    from {
-        transform: translateY(0);
-    }
-    to {
-        transform: translateY(-100%); /* Changed direction and distance */
-    }
-}
+@keyframes starfield { from { transform: translateY(0); } to { transform: translateY(-50%); } }
 
-.shooting-star {
-    position: absolute;
-    width: 2px; /* Slightly smaller */
-    height: 2px;
-    background: white;
-    border-radius: 50%;
-    animation: shoot 2.5s linear forwards; /* Slightly slower */
-    z-index: 1;
-    box-shadow:
-        0 0 8px #fff, /* Reduced glow */
-        0 0 15px #fff,
-        0 0 20px #fff;
-}
+/* Header */
+.experience-header { max-width:1200px; margin:0 auto 40px; padding:15px 20px; display:flex; align-items:center; justify-content:center; position:relative; z-index:1; }
+.experience-header h1 { margin:0; font-size:clamp(2rem,4.5vw,2.6rem); letter-spacing:5px; font-weight:700; font-family:'Courier New', monospace; }
 
-@keyframes shoot {
-    0% {
-        opacity: 1;
-        transform: translate(0, 0) rotate(45deg) scale(0);
-    }
-    70% {
+/* Gradient text (neutral white shimmer) */
+.gradient-text { background:linear-gradient(95deg,#ffffff 0%, #eef1f7 25%, #dcdfe6 50%, #f5f7fa 75%, #ffffff 100%); background-clip:text; -webkit-background-clip:text; color:transparent; filter:drop-shadow(0 0 12px rgba(255,255,255,0.45)); background-size:160% auto; animation:gradientShift 8s linear infinite; }
+@keyframes gradientShift { 0%{background-position:0% 50%;} 50%{background-position:100% 50%;} 100%{background-position:0% 50%;} }
+
+.back-btn { position:absolute; left:20px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.25); padding:8px 22px; font-size:.95rem; color:#fff; border-radius:30px; font-family:'Courier New', monospace; cursor:pointer; transition:all .35s ease; letter-spacing:1px; }
+.back-btn:hover { background:rgba(255,255,255,0.12); border-color:rgba(255,255,255,0.5); transform:translateY(-3px); box-shadow:0 8px 25px -10px rgba(0,0,0,.6),0 0 35px -15px rgba(255,255,255,.55); }
+
+/* Timeline */
+.timeline { max-width:960px; margin:0 auto; padding:10px 10px 40px; position:relative; z-index:1; }
+.timeline::before { content:''; position:absolute; left:50%; top:0; transform:translateX(-50%); width:2px; height:100%; background:linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,0.25) 15%, rgba(255,255,255,0.25) 85%, rgba(255,255,255,0) 100%); }
+
+.experience-card { width:calc(50% - 50px); margin:34px 0; position:relative; z-index:1; }
+.experience-card:nth-child(odd){ left:0; }
+.experience-card:nth-child(even){ margin-left:calc(50% + 50px); }
+.experience-card::before { content:''; position:absolute; top:50%; transform:translateY(-50%); width:16px; height:16px; background:rgba(255,255,255,0.08); border:2px solid rgba(255,255,255,0.35); border-radius:50%; }
+.experience-card:nth-child(odd)::before{ right:-60px; }
+.experience-card:nth-child(even)::before{ left:-60px; }
+
+/* Experience Page - Clean White Glow Theme */
+.experience-container { min-height:100vh; background:radial-gradient(circle at 20% 30%, #03030a, #000 65%); padding:20px 20px 60px; color:#fff; position:relative; overflow:hidden; }
+.experience-container::before { content:""; position:absolute; width:200%; height:200%; top:-50%; left:-50%; z-index:0; background-image:radial-gradient(1px 1px at 40px 60px,#fff,transparent),radial-gradient(1px 1px at 20px 50px,#ccc,transparent),radial-gradient(1px 1px at 30px 100px,#eee,transparent),radial-gradient(1px 1px at 90px 40px,#ddd,transparent),radial-gradient(1px 1px at 130px 80px,#fff,transparent),radial-gradient(1px 1px at 160px 120px,#bbb,transparent); animation:starfield 140s linear infinite; opacity:.7; }
+@keyframes starfield { from { transform:translateY(0);} to { transform:translateY(-50%);} }
+.experience-container::after { content:""; position:fixed; inset:0; background:radial-gradient(circle at 15% 25%,rgba(255,255,255,0.08) 0%,transparent 60%),radial-gradient(circle at 80% 70%,rgba(255,255,255,0.05) 0%,transparent 55%),radial-gradient(circle at 50% 50%,rgba(255,255,255,0.04) 0%,transparent 70%); pointer-events:none; opacity:.65; }
+.experience-header { max-width:1200px; margin:0 auto 40px; padding:15px 20px; display:flex; align-items:center; justify-content:center; position:relative; z-index:1; }
+.experience-header h1 { margin:0; font-size:clamp(2rem,4.5vw,2.6rem); letter-spacing:5px; font-weight:700; font-family:'Courier New', monospace; }
+.gradient-text { background:linear-gradient(95deg,#ffffff 0%,#eef1f7 25%,#dcdfe6 50%,#f5f7fa 75%,#ffffff 100%); background-clip:text; -webkit-background-clip:text; color:transparent; filter:drop-shadow(0 0 12px rgba(255,255,255,0.4)); background-size:160% auto; animation:gradientShift 8s linear infinite; }
+@keyframes gradientShift { 0%{background-position:0% 50%;} 50%{background-position:100% 50%;} 100%{background-position:0% 50%;} }
+.back-btn { position:absolute; left:20px; background:rgba(255,255,255,0.05); border:1px solid rgba(255,255,255,0.25); padding:8px 22px; font-size:.95rem; color:#fff; border-radius:30px; font-family:'Courier New', monospace; cursor:pointer; transition:all .35s ease; letter-spacing:1px; }
+.back-btn:hover { background:rgba(255,255,255,0.12); border-color:rgba(255,255,255,0.5); transform:translateY(-3px); box-shadow:0 8px 25px -10px rgba(0,0,0,.6),0 0 35px -15px rgba(255,255,255,.55); }
+.timeline { max-width:960px; margin:0 auto; padding:10px 10px 40px; position:relative; z-index:1; }
+.timeline::before { content:""; position:absolute; left:50%; top:0; transform:translateX(-50%); width:2px; height:100%; background:linear-gradient(to bottom,rgba(255,255,255,0) 0%,rgba(255,255,255,0.25) 15%,rgba(255,255,255,0.25) 85%,rgba(255,255,255,0) 100%); }
+.experience-card { width:calc(50% - 50px); margin:34px 0; position:relative; z-index:1; }
+.experience-card:nth-child(odd){ left:0; }
+.experience-card:nth-child(even){ margin-left:calc(50% + 50px); }
+.experience-card::before { content:""; position:absolute; top:50%; transform:translateY(-50%); width:16px; height:16px; background:rgba(255,255,255,0.08); border:2px solid rgba(255,255,255,0.35); border-radius:50%; }
+.experience-card:nth-child(odd)::before{ right:-60px; }
+.experience-card:nth-child(even)::before{ left:-60px; }
+.glass-card .exp-content { background:radial-gradient(circle at 30% 20%, rgba(255,255,255,0.12), rgba(255,255,255,0.04) 70%, rgba(255,255,255,0.02)); border-radius:22px; padding:28px 26px; backdrop-filter:blur(14px) saturate(160%); border:1px solid rgba(255,255,255,0.18); transition:all .4s ease; display:grid; grid-template-columns:auto 1fr; gap:22px; box-shadow:0 8px 40px -15px rgba(0,0,0,.7),0 0 0 1px rgba(255,255,255,0.07),0 0 55px -25px rgba(255,255,255,0.5); position:relative; overflow:hidden; }
+.glass-card .exp-content:before { content:""; position:absolute; inset:0; pointer-events:none; border-radius:inherit; background:radial-gradient(circle at 80% 20%, rgba(255,255,255,0.25), transparent 65%); mix-blend-mode:overlay; opacity:.4; }
+.glass-card .exp-content:hover { border-color:rgba(255,255,255,0.45); box-shadow:0 15px 55px -20px rgba(0,0,0,.75),0 0 0 1px rgba(255,255,255,0.12),0 0 75px -20px rgba(255,255,255,0.55); transform:translateY(-4px); }
+.exp-logo { width:52px; height:52px; background:rgba(255,255,255,0.1); border-radius:12px; padding:10px; display:flex; align-items:center; justify-content:center; }
+.exp-logo img { width:100%; height:100%; object-fit:contain; }
+.exp-details { display:flex; flex-direction:column; gap:6px; min-width:0; }
+.exp-content h3 { margin:0; font-size:1.05rem; letter-spacing:1px; color:rgba(255,255,255,0.95); font-weight:600; }
+.exp-content h4 { margin:0; font-size:.9rem; color:rgba(255,255,255,0.7); font-style:italic; letter-spacing:.5px; }
+.exp-meta { display:flex; gap:14px; flex-wrap:wrap; font-size:.7rem; letter-spacing:1px; color:rgba(255,255,255,0.55); text-transform:uppercase; }
+.exp-meta span { white-space:nowrap; }
+.planet { position:absolute; border-radius:50%; opacity:.55; filter:blur(2px); mix-blend-mode:screen; }
+.planet-1 { width:120px; height:120px; background:radial-gradient(circle at 30% 30%, rgba(255,255,255,0.18), transparent 70%); top:15%; right:10%; box-shadow:0 0 60px -10px rgba(255,255,255,0.35); animation:float 22s ease-in-out infinite; }
+.planet-2 { width:80px; height:80px; background:radial-gradient(circle at 40% 40%, rgba(255,255,255,0.14), transparent 70%); bottom:22%; left:15%; box-shadow:0 0 40px -10px rgba(255,255,255,0.3); animation:float 20s ease-in-out infinite reverse; }
+.planet-3 { width:60px; height:60px; background:radial-gradient(circle at 35% 35%, rgba(255,255,255,0.16), transparent 70%); top:42%; left:25%; box-shadow:0 0 45px -15px rgba(255,255,255,0.35); animation:float 26s ease-in-out infinite; }
+@keyframes float { 0%,100%{ transform:translateY(0) rotate(0deg);} 50%{ transform:translateY(-18px) rotate(4deg);} }
+.nebula { position:absolute; border-radius:50%; filter:blur(55px); opacity:.12; mix-blend-mode:screen; pointer-events:none; animation:pulseNeb 14s ease-in-out infinite; }
+.nebula-1 { width:460px; height:460px; background:radial-gradient(circle at center, rgba(255,255,255,0.18), transparent 72%); top:8%; left:-15%; }
+.nebula-2 { width:360px; height:360px; background:radial-gradient(circle at center, rgba(255,255,255,0.15), transparent 72%); bottom:16%; right:-12%; animation-delay:-6s; }
+@keyframes pulseNeb { 0%,100%{ transform:scale(1); opacity:.12;} 50%{ transform:scale(1.15); opacity:.18;} }
+.shooting-star { position:absolute; width:2px; height:2px; background:#fff; border-radius:50%; animation:shoot 2.4s linear forwards; opacity:0; box-shadow:0 0 8px #fff,0 0 16px #fff; }
+@keyframes shoot { 0%{ opacity:1; transform:translate(0,0) rotate(45deg) scale(0);} 70%{ opacity:1;} 100%{ opacity:0; transform:translate(320px,320px) rotate(45deg) scale(1);} }
+.comet { position:absolute; width:4px; height:4px; background:#fff; border-radius:50%; animation:comet 8s linear infinite; opacity:0; }
+.comet:after { content:""; position:absolute; top:50%; left:50%; width:90px; height:1px; background:linear-gradient(to left,#fff,transparent); transform:translate(-100%, -50%); }
+@keyframes comet { 0%{ opacity:0; transform:translate(-120px,-120px) rotate(45deg);} 15%{ opacity:1;} 85%{ opacity:1;} 100%{ opacity:0; transform:translate(calc(100vw + 120px), calc(100vh + 120px)) rotate(45deg);} }
+@media (max-width:900px){ .timeline::before{ display:none;} .experience-card, .experience-card:nth-child(even){ width:100%; margin:22px 0; left:0; margin-left:0;} .experience-card::before{ display:none;} .glass-card .exp-content{ grid-template-columns:48px 1fr; padding:22px 20px;} .exp-logo{ width:48px; height:48px; padding:8px;} .experience-header h1{ font-size:2.1rem; letter-spacing:4px;} }
+@media (max-width:520px){ .glass-card .exp-content{ grid-template-columns:40px 1fr; padding:18px 16px; gap:16px;} .exp-logo{ width:40px; height:40px; padding:6px;} .experience-header h1{ font-size:1.75rem; letter-spacing:3px;} .back-btn{ display:none;} }
+        font-weight: 700; /* Increased boldness */
+        letter-spacing: 5px; /* Increased spacing */
+        color: rgba(255, 255, 255, 0.9); /* Brightness unchanged */
+        text-shadow: 0 0 15px rgba(255, 255, 255, 0.2); /* Shadow unchanged */
+        margin: 0; 
+        font-family: 'Courier New', monospace; 
         opacity: 1;
     }
     100% {
@@ -84,105 +135,51 @@
     }
 }
 
-.experience-header {
-    max-width: 1200px;
-    margin: 0 auto 40px auto;
-    padding: 15px 20px; /* Adjusted padding */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    z-index: 1;
-    /* Remove button-like background/border */
-    background: none;
-    border: none;
-    backdrop-filter: none;
-    box-shadow: none;
-}
-
-.experience-header h1 {
-    flex-grow: 0;
-    text-align: center;
-    font-size: clamp(1.8rem, 4vw, 2.2rem); /* Slightly smaller font size */
-    font-weight: 600; /* Slightly less bold */
-    letter-spacing: 4px; /* Increased spacing */
-    color: rgba(255, 255, 255, 0.9); /* Slightly less bright */
-    text-shadow: 0 0 15px rgba(255, 255, 255, 0.2); /* More subtle shadow */
-    margin: 0;
-    font-family: 'Courier New', monospace;
-    /* Remove button-like styling */
-    padding: 0; /* Remove padding if any was implied */
-    border-radius: 0; /* Remove border-radius */
-    transition: none; /* Remove transitions */
-}
-
-.back-btn {
-  position: absolute;
-  left: 20px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 8px 20px;
-  font-size: 1rem;
-  /* Inherit void-btn styles for consistency if needed, or define separately */
-  color: white;
-  border-radius: 30px;
-  font-family: 'Courier New', monospace;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.back-btn:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.4);
-  transform: translateY(-2px);
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-}
-
-.timeline {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
-    position: relative;
-    z-index: 1;
-}
-
-.timeline::before {
-    content: '';
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 2px;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.1);
-}
-
-.experience-card {
-    width: calc(50% - 50px);
-    margin: 30px 0;
-    position: relative;
-    z-index: 1;
-}
-
-.experience-card:nth-child(odd) {
-    left: 0;
-}
-
-.experience-card:nth-child(even) {
-    margin-left: calc(50% + 50px);
-}
-
-.experience-card::before {
-    content: '';
-    position: absolute;
-    width: 16px;
-    height: 16px;
-    background: rgba(255, 255, 255, 0.1);
-    border: 2px solid rgba(255, 255, 255, 0.3);
-    border-radius: 50%;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
+/* Experience Page - Clean White Glow Theme */
+.experience-container{min-height:100vh;background:radial-gradient(circle at 20% 30%,#03030a,#000 65%);padding:20px 20px 60px;color:#fff;position:relative;overflow:hidden}
+.experience-container:before{content:"";position:absolute;width:200%;height:200%;top:-50%;left:-50%;z-index:0;background-image:radial-gradient(1px 1px at 40px 60px,#fff,transparent),radial-gradient(1px 1px at 20px 50px,#ccc,transparent),radial-gradient(1px 1px at 30px 100px,#eee,transparent),radial-gradient(1px 1px at 90px 40px,#ddd,transparent),radial-gradient(1px 1px at 130px 80px,#fff,transparent),radial-gradient(1px 1px at 160px 120px,#bbb,transparent);animation:starfield 140s linear infinite;opacity:.7}
+@keyframes starfield{from{transform:translateY(0)}to{transform:translateY(-50%)}}
+.experience-container:after{content:"";position:fixed;inset:0;background:radial-gradient(circle at 15% 25%,rgba(255,255,255,.08) 0%,transparent 60%),radial-gradient(circle at 80% 70%,rgba(255,255,255,.05) 0%,transparent 55%),radial-gradient(circle at 50% 50%,rgba(255,255,255,.04) 0%,transparent 70%);pointer-events:none;opacity:.65}
+.experience-header{max-width:1200px;margin:0 auto 40px;padding:15px 20px;display:flex;align-items:center;justify-content:center;position:relative;z-index:1}
+.experience-header h1{margin:0;font-size:clamp(2rem,4.5vw,2.6rem);letter-spacing:5px;font-weight:700;font-family:'Courier New',monospace}
+.gradient-text{background:linear-gradient(95deg,#ffffff 0%,#eef1f7 25%,#dcdfe6 50%,#f5f7fa 75%,#ffffff 100%);background-clip:text;-webkit-background-clip:text;color:transparent;filter:drop-shadow(0 0 12px rgba(255,255,255,.4));background-size:160% auto;animation:gradientShift 8s linear infinite}
+@keyframes gradientShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+.back-btn{position:absolute;left:20px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.25);padding:8px 22px;font-size:.95rem;color:#fff;border-radius:30px;font-family:'Courier New',monospace;cursor:pointer;transition:all .35s ease;letter-spacing:1px}
+.back-btn:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.5);transform:translateY(-3px);box-shadow:0 8px 25px -10px rgba(0,0,0,.6),0 0 35px -15px rgba(255,255,255,.55)}
+.timeline{max-width:960px;margin:0 auto;padding:10px 10px 40px;position:relative;z-index:1}
+.timeline:before{content:"";position:absolute;left:50%;top:0;transform:translateX(-50%);width:2px;height:100%;background:linear-gradient(to bottom,rgba(255,255,255,0) 0%,rgba(255,255,255,.25) 15%,rgba(255,255,255,.25) 85%,rgba(255,255,255,0) 100%)}
+.experience-card{width:calc(50% - 50px);margin:34px 0;position:relative;z-index:1}
+.experience-card:nth-child(odd){left:0}
+.experience-card:nth-child(even){margin-left:calc(50% + 50px)}
+.experience-card:before{content:"";position:absolute;top:50%;transform:translateY(-50%);width:16px;height:16px;background:rgba(255,255,255,.08);border:2px solid rgba(255,255,255,.35);border-radius:50%}
+.experience-card:nth-child(odd):before{right:-60px}
+.experience-card:nth-child(even):before{left:-60px}
+.glass-card .exp-content{background:radial-gradient(circle at 30% 20%,rgba(255,255,255,.12),rgba(255,255,255,.04) 70%,rgba(255,255,255,.02));border-radius:22px;padding:28px 26px;backdrop-filter:blur(14px) saturate(160%);border:1px solid rgba(255,255,255,.18);transition:all .4s ease;display:grid;grid-template-columns:auto 1fr;gap:22px;box-shadow:0 8px 40px -15px rgba(0,0,0,.7),0 0 0 1px rgba(255,255,255,.07),0 0 55px -25px rgba(255,255,255,.5);position:relative;overflow:hidden}
+.glass-card .exp-content:before{content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;background:radial-gradient(circle at 80% 20%,rgba(255,255,255,.25),transparent 65%);mix-blend-mode:overlay;opacity:.4}
+.glass-card .exp-content:hover{border-color:rgba(255,255,255,.45);box-shadow:0 15px 55px -20px rgba(0,0,0,.75),0 0 0 1px rgba(255,255,255,.12),0 0 75px -20px rgba(255,255,255,.55);transform:translateY(-4px)}
+.exp-logo{width:52px;height:52px;background:rgba(255,255,255,.1);border-radius:12px;padding:10px;display:flex;align-items:center;justify-content:center}
+.exp-logo img{width:100%;height:100%;object-fit:contain}
+.exp-details{display:flex;flex-direction:column;gap:6px;min-width:0}
+.exp-content h3{margin:0;font-size:1.05rem;letter-spacing:1px;color:rgba(255,255,255,.95);font-weight:600}
+.exp-content h4{margin:0;font-size:.9rem;color:rgba(255,255,255,.7);font-style:italic;letter-spacing:.5px}
+.exp-meta{display:flex;gap:14px;flex-wrap:wrap;font-size:.7rem;letter-spacing:1px;color:rgba(255,255,255,.55);text-transform:uppercase}
+.exp-meta span{white-space:nowrap}
+.planet{position:absolute;border-radius:50%;opacity:.55;filter:blur(2px);mix-blend-mode:screen}
+.planet-1{width:120px;height:120px;background:radial-gradient(circle at 30% 30%,rgba(255,255,255,.18),transparent 70%);top:15%;right:10%;box-shadow:0 0 60px -10px rgba(255,255,255,.35);animation:float 22s ease-in-out infinite}
+.planet-2{width:80px;height:80px;background:radial-gradient(circle at 40% 40%,rgba(255,255,255,.14),transparent 70%);bottom:22%;left:15%;box-shadow:0 0 40px -10px rgba(255,255,255,.3);animation:float 20s ease-in-out infinite reverse}
+.planet-3{width:60px;height:60px;background:radial-gradient(circle at 35% 35%,rgba(255,255,255,.16),transparent 70%);top:42%;left:25%;box-shadow:0 0 45px -15px rgba(255,255,255,.35);animation:float 26s ease-in-out infinite}
+@keyframes float{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-18px) rotate(4deg)}}
+.nebula{position:absolute;border-radius:50%;filter:blur(55px);opacity:.12;mix-blend-mode:screen;pointer-events:none;animation:pulseNeb 14s ease-in-out infinite}
+.nebula-1{width:460px;height:460px;background:radial-gradient(circle at center,rgba(255,255,255,.18),transparent 72%);top:8%;left:-15%}
+.nebula-2{width:360px;height:360px;background:radial-gradient(circle at center,rgba(255,255,255,.15),transparent 72%);bottom:16%;right:-12%;animation-delay:-6s}
+@keyframes pulseNeb{0%,100%{transform:scale(1);opacity:.12}50%{transform:scale(1.15);opacity:.18}}
+.shooting-star{position:absolute;width:2px;height:2px;background:#fff;border-radius:50%;animation:shoot 2.4s linear forwards;opacity:0;box-shadow:0 0 8px #fff,0 0 16px #fff}
+@keyframes shoot{0%{opacity:1;transform:translate(0,0) rotate(45deg) scale(0)}70%{opacity:1}100%{opacity:0;transform:translate(320px,320px) rotate(45deg) scale(1)}}
+.comet{position:absolute;width:4px;height:4px;background:#fff;border-radius:50%;animation:comet 8s linear infinite;opacity:0}
+.comet:after{content:"";position:absolute;top:50%;left:50%;width:90px;height:1px;background:linear-gradient(to left,#fff,transparent);transform:translate(-100%,-50%)}
+@keyframes comet{0%{opacity:0;transform:translate(-120px,-120px) rotate(45deg)}15%{opacity:1}85%{opacity:1}100%{opacity:0;transform:translate(calc(100vw + 120px),calc(100vh + 120px)) rotate(45deg)}}
+@media (max-width:900px){.timeline:before{display:none}.experience-card,.experience-card:nth-child(even){width:100%;margin:22px 0;left:0;margin-left:0}.experience-card:before{display:none}.glass-card .exp-content{grid-template-columns:48px 1fr;padding:22px 20px}.exp-logo{width:48px;height:48px;padding:8px}.experience-header h1{font-size:2.1rem;letter-spacing:4px}}
+@media (max-width:520px){.glass-card .exp-content{grid-template-columns:40px 1fr;padding:18px 16px;gap:16px}.exp-logo{width:40px;height:40px;padding:6px}.experience-header h1{font-size:1.75rem;letter-spacing:3px}.back-btn{display:none}}
 .experience-card:nth-child(odd)::before {
     right: -60px;
 }
@@ -192,12 +189,12 @@
 }
 
 .exp-content {
-    background: rgba(255, 255, 255, 0.03);
-    border-radius: 15px;
-    padding: 25px;
-    backdrop-filter: blur(10px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    transition: all 0.3s ease;
+  min-height: 100vh;
+  background: radial-gradient(circle at 20% 30%, #03030a, #000 65%);
+  padding: 20px 20px 60px;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
     display: grid;
     grid-template-columns: auto 1fr;
     gap: 20px;
@@ -209,12 +206,12 @@
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4),
                 0 0 20px rgba(255, 255, 255, 0.1);
     transform: translateY(-2px);
-}
-
-.exp-logo {
-    width: 45px;
-    height: 45px;
-    background: rgba(255, 255, 255, 0.1);
+    radial-gradient(1px 1px at 40px 60px, #fff, rgba(0,0,0,0)),
+    radial-gradient(1px 1px at 20px 50px, #ccc, rgba(0,0,0,0)),
+    radial-gradient(1px 1px at 30px 100px, #eee, rgba(0,0,0,0)),
+    radial-gradient(1px 1px at 90px 40px, #ddd, rgba(0,0,0,0)),
+    radial-gradient(1px 1px at 130px 80px, #fff, rgba(0,0,0,0)),
+    radial-gradient(1px 1px at 160px 120px, #bbb, rgba(0,0,0,0));
     border-radius: 8px;
     padding: 8px;
     display: flex;
@@ -322,6 +319,9 @@
     width: 100px; /* Slightly smaller */
     height: 100px;
     background: radial-gradient(circle at 30% 30%, rgba(30, 77, 138, 0.7), transparent 70%); /* Adjusted gradient */
+      radial-gradient(circle at 15% 25%, rgba(255,255,255,0.08) 0%, transparent 60%),
+      radial-gradient(circle at 80% 70%, rgba(255,255,255,0.05) 0%, transparent 55%),
+      radial-gradient(circle at 50% 50%, rgba(255,255,255,0.04) 0%, transparent 70%);
     top: 15%;
     right: 10%;
     box-shadow: 0 0 40px rgba(30, 77, 138, 0.3); /* Reduced shadow */

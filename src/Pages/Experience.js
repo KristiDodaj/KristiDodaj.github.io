@@ -1,6 +1,6 @@
 // src/Pages/Experience.js
 import React, { useEffect } from 'react';
-import './Experience.css';
+import './ExperienceClean.css';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import uoftLogo from '../Assets/uoft.png';
@@ -107,15 +107,15 @@ function Experience() {
       <div className="planet planet-3"></div>
       <GalaxyElements />
       <div className="experience-header">
-        <button className="void-btn back-btn" onClick={handleBack}>
+        <button className="void-btn back-btn" onClick={handleBack} aria-label="Back to home">
           ← Back
         </button>
-        <h1>EXPERIENCE</h1>
+        <h1 className="section-title"><span className="gradient-text">EXPERIENCE</span></h1>
       </div>
       <div className="timeline">
         {experienceData.map((exp, index) => (
           <motion.div
-            className="experience-card"
+            className="experience-card glass-card"
             initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.5, delay: index * 0.2 }}
