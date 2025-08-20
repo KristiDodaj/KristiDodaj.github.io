@@ -115,10 +115,11 @@
   position: fixed;
   top: 22%;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translate(-50%, -50%); /* center */
+  /* Fix horizontal jump: give container a stable width so typing expansion doesn't shift center */
+  width: clamp(300px, 62vw, 640px);
   white-space: nowrap;
   overflow: hidden;
-  max-width: 90vw;
   z-index: 3;
   text-align: center;
   letter-spacing: 1px;
@@ -129,6 +130,8 @@
   border: 1px solid rgba(255,255,255,0.15);
   box-shadow: 0 0 25px -5px rgba(255,255,255,0.3), 0 0 60px -15px rgba(255,255,255,0.35);
   animation: floatPrompt 6s ease-in-out infinite;
+  display: flex;
+  justify-content: center;
 }
 
 @keyframes floatPrompt {
@@ -671,7 +674,7 @@
   }
 
   .nav-buttons {
-    bottom: 10%;
+  bottom: 7%; /* lowered closer to bottom -> more gap from hero */
     flex-direction: column;
     align-items: center;
     gap: 10px;
@@ -721,6 +724,8 @@
     padding: 20px 10px;
   }
 
+  .nav-buttons { bottom: 6%; }
+
   .welcome-text p {
     font-size: 0.9rem;
   }
@@ -749,4 +754,42 @@
     font-size: 0.75rem;
     margin-top: 5px;
   }
+
+  /* Force precise centering + wrapping for pre-entry prompt on very small screens */
+  .text-prompt {
+    top: 24%;
+    transform: translateX(-50%);
+    width: clamp(260px, 86vw, 600px); /* still stable, a bit wider on very small screens */
+    white-space: nowrap; /* keep single line for consistent centering */
+  }
+}
+
+/* iPhone 15 Pro / similar tall narrow portrait adjustments */
+@media screen and (max-width: 440px) and (min-height: 780px) {
+  /* Allow prompt to wrap and truly center */
+  .text-prompt {
+    white-space: normal;
+    line-height: 1.35;
+    padding: 12px 18px 14px;
+    top: 20%;
+  }
+  .welcome-text { top: 45%; }
+  .nav-buttons { bottom: 8%; }
+}
+
+/* Prevent overlap of hero card and nav buttons on devices where fixed positions collide */
+@media screen and (max-height: 760px) {
+  .welcome-text { top: 42%; }
+  .nav-buttons { bottom: 7%; }
+}
+
+/* Very constrained heights: stack nav below card instead of fixed to bottom */
+@media screen and (max-height: 680px) and (max-width: 520px) {
+  .welcome-text { position: relative; top: auto; left: 50%; transform: translateX(-50%); margin-top: 120px; }
+  .nav-buttons { position: relative; bottom: auto; left: 50%; transform: translateX(-50%); margin-top: 28px; }
+}
+
+/* Safety: reduce hero padding when vertical space tight */
+@media screen and (max-height: 760px) and (max-width: 520px) {
+  .welcome-text { padding: 24px 16px; }
 }
