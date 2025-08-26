@@ -53,6 +53,13 @@ const experienceData = [
     location: "Vancouver, BC",
     logo: asanaLogo
   },
+  {
+    title: "Member of Technical Staff",
+    company: "Cohere",
+    period: "Fall 2025",
+    location: "Toronto, ON",
+    logo: cohereLogo
+  },
 ];
 
 function GalaxyElements() {
