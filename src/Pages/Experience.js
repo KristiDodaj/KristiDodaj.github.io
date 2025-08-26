@@ -15,50 +15,63 @@ const experienceData = [
     company: "University of Toronto",
     period: "Fall 2021",
     location: "Toronto, ON",
-    logo: uoftLogo
+  logo: uoftLogo,
+  website: "https://www.utoronto.ca",
+  websiteLabel: "University of Toronto"
   },
   {
     title: "Software Engineer Intern",
     company: "Wealthsimple",
     period: "Summer 2023",
     location: "Toronto, ON",
-    logo: wsLogo 
+  logo: wsLogo,
+  website: "https://www.wealthsimple.com",
+  websiteLabel: "Wealthsimple"
   },
   {
     title: "Software Engineer Intern",
     company: "Wealthsimple",
     period: "Winter 2024",
     location: "Toronto, ON",
-    logo: wsLogo
+  logo: wsLogo,
+  website: "https://www.wealthsimple.com",
+  websiteLabel: "Wealthsimple"
   },
   {
     title: "Software Engineer Intern",
     company: "Sunlife Financial",
     period: "Fall 2024",
     location: "Toronto, ON",
-    logo: slLogo
+  logo: slLogo,
+  website: "https://www.sunlife.ca/en/",
+  websiteLabel: "Sun Life"
   },
   {
     title: "Intern of Technical Staff",
     company: "Cohere",
-
     period: "Winter 2025",
     location: "Toronto, ON",
-    logo: cohereLogo
+  logo: cohereLogo,
+  website: "https://cohere.ai",
+  websiteLabel: "Cohere"
   },
   {
     title: "Software Engineer Intern",
     company: "Asana",
     period: "Summer 2025",
     location: "Vancouver, BC",
-    logo: asanaLogo
+  logo: asanaLogo,
+  website: "https://www.asana.com",
+  websiteLabel: "Asana"
   },
   {
     title: "Member of Technical Staff",
     company: "Cohere",
     period: "Fall 2025",
     location: "Toronto, ON",
-    logo: cohereLogo
+  logo: cohereLogo,
+  website: "https://cohere.ai",
+  websiteLabel: "Cohere"
   },
 ];
 
@@ -108,7 +121,7 @@ function Experience() {
   };
 
   return (
-    <div className="experience-container">
+  <div className="experience-container">
       <div className="planet planet-1"></div>
       <div className="planet planet-2"></div>
       <div className="planet planet-3"></div>
@@ -133,7 +146,21 @@ function Experience() {
                 <img src={exp.logo} alt={`${exp.company} logo`} />
               </div>
               <div className="exp-details">
-                <h3>{exp.company}</h3>
+                <h3>
+                  {exp.website ? (
+                    <a
+                      href={exp.website}
+                      className="company-link"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`Visit ${exp.company} website (opens in new tab)`}
+                    >
+                      {exp.company} <span className="external-icon" aria-hidden="true">↗</span>
+                    </a>
+                  ) : (
+                    exp.company
+                  )}
+                </h3>
                 <h4>{exp.title}</h4>
                 <div className="exp-meta">
                   <span>{exp.period}</span>

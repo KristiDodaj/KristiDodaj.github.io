@@ -17,14 +17,39 @@
 .experience-card:nth-child(odd):before{right:-60px}.experience-card:nth-child(even):before{left:-60px}
 .glass-card .exp-content{background:radial-gradient(circle at 30% 20%,rgba(255,255,255,.12),rgba(255,255,255,.04) 70%,rgba(255,255,255,.02));border-radius:22px;padding:28px 26px;backdrop-filter:blur(14px) saturate(160%);border:1px solid rgba(255,255,255,.18);transition:all .4s ease;display:grid;grid-template-columns:auto 1fr;gap:22px;box-shadow:0 8px 40px -15px rgba(0,0,0,.7),0 0 0 1px rgba(255,255,255,.07),0 0 55px -25px rgba(255,255,255,.5);position:relative;overflow:hidden}
 .glass-card .exp-content:before{content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;background:radial-gradient(circle at 80% 20%,rgba(255,255,255,.25),transparent 65%);mix-blend-mode:overlay;opacity:.4}
-.glass-card .exp-content:hover{border-color:rgba(255,255,255,.45);box-shadow:0 15px 55px -20px rgba(0,0,0,.75),0 0 0 1px rgba(255,255,255,.12),0 0 75px -20px rgba(255,255,255,.55);transform:translateY(-4px)}
+.glass-card .exp-content:hover{
+    border-color: rgba(255,255,255,.45);
+    box-shadow: 0 15px 55px -20px rgba(0,0,0,.75),
+                0 0 0 1px rgba(255,255,255,.12),
+                0 0 75px -20px rgba(255,255,255,.55),
+                0 0 20px rgba(255,255,255,.2);
+    transform: translateY(-4px);
+    cursor: pointer;
+}
+.glass-card .exp-content:active {
+    transform: translateY(-2px);
+    transition: all 0.1s ease;
+}
 .exp-logo{width:52px;height:52px;background:rgba(255,255,255,.1);border-radius:12px;padding:10px;display:flex;align-items:center;justify-content:center}
 .exp-logo img{width:100%;height:100%;object-fit:contain}
 .exp-details{display:flex;flex-direction:column;gap:6px;min-width:0}
 .exp-content h3{margin:0;font-size:1.05rem;letter-spacing:1px;color:rgba(255,255,255,.95);font-weight:600}
+.company-link{color:rgba(255,255,255,.95);text-decoration:none;position:relative;display:inline-flex;align-items:center;gap:4px}
+.company-link:hover{color:#fff}
+.company-link .external-icon{font-size:.75rem;opacity:.7;transition:transform .25s ease,opacity .25s}
+.company-link:hover .external-icon{transform:translate(2px,-2px);opacity:1}
 .exp-content h4{margin:0;font-size:.9rem;color:rgba(255,255,255,.7);font-style:italic;letter-spacing:.5px}
 .exp-meta{display:flex;gap:14px;flex-wrap:wrap;font-size:.7rem;letter-spacing:1px;color:rgba(255,255,255,.55);text-transform:uppercase}
 .exp-meta span{white-space:nowrap}
+.exp-website{margin-top:10px;display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.website-preview{display:inline-flex;align-items:center;justify-content:center;width:76px;height:46px;border-radius:12px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.08);padding:6px;cursor:pointer;position:relative;overflow:hidden;transition:all .35s ease;backdrop-filter:blur(6px) saturate(160%)}
+.website-preview img{width:100%;height:100%;object-fit:contain;filter:drop-shadow(0 2px 6px rgba(0,0,0,.55))}
+.website-preview .external-icon{position:absolute;bottom:4px;right:6px;font-size:.6rem;background:rgba(255,255,255,.15);padding:2px 5px;border-radius:6px;backdrop-filter:blur(4px);opacity:.85}
+.website-preview:hover{border-color:rgba(255,255,255,.5);background:rgba(255,255,255,.15);transform:translateY(-3px) scale(1.03);box-shadow:0 8px 22px -10px rgba(0,0,0,.7),0 0 0 1px rgba(255,255,255,.25)}
+.website-preview:active{transform:translateY(-1px) scale(1)}
+.website-link{font-size:.65rem;letter-spacing:.5px;text-transform:uppercase;color:rgba(255,255,255,.7);text-decoration:none;border:1px solid rgba(255,255,255,.18);padding:6px 14px;border-radius:22px;transition:all .3s ease;background:rgba(255,255,255,.05);backdrop-filter:blur(6px)}
+.website-link:hover{color:#fff;border-color:rgba(255,255,255,.5);background:rgba(255,255,255,.15)}
+.website-link:active{transform:translateY(1px)}
 .planet{position:absolute;border-radius:50%;opacity:.55;filter:blur(2px);mix-blend-mode:screen}
 .planet-1{width:120px;height:120px;background:radial-gradient(circle at 30% 30%,rgba(255,255,255,.18),transparent 70%);top:15%;right:10%;box-shadow:0 0 60px -10px rgba(255,255,255,.35);animation:float 22s ease-in-out infinite}
 .planet-2{width:80px;height:80px;background:radial-gradient(circle at 40% 40%,rgba(255,255,255,.14),transparent 70%);bottom:22%;left:15%;box-shadow:0 0 40px -10px rgba(255,255,255,.3);animation:float 20s ease-in-out infinite reverse}
