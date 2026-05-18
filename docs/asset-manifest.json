@@ -1,18 +1,19 @@
 {
   "files": {
-    "main.css": "/static/css/main.4789ef1b.css",
-    "main.js": "/static/js/main.d9cb2b0d.js",
-    "static/media/WS.png": "/static/media/WS.e54623d0707273c9a60d.png",
+    "main.css": "/static/css/main.d72e0494.css",
+    "main.js": "/static/js/main.3fb1d126.js",
+    "static/media/north-demo.png": "/static/media/north-demo.dd1f5402152359ec33d8.png",
+    "static/media/wealthsimple-logo.png": "/static/media/wealthsimple-logo.9be7f9f77942aa86f6d0.png",
     "static/media/uoft.png": "/static/media/uoft.ee74d3c1876092301d45.png",
     "static/media/cohere.png": "/static/media/cohere.3ba95375ba6ecd07fd65.png",
     "static/media/Asana.png": "/static/media/Asana.a6f39c483e99c5d801f6.png",
     "static/media/SunLife.png": "/static/media/SunLife.27565236f3a6ea558bc2.png",
     "index.html": "/index.html",
-    "main.4789ef1b.css.map": "/static/css/main.4789ef1b.css.map",
-    "main.d9cb2b0d.js.map": "/static/js/main.d9cb2b0d.js.map"
+    "main.d72e0494.css.map": "/static/css/main.d72e0494.css.map",
+    "main.3fb1d126.js.map": "/static/js/main.3fb1d126.js.map"
   },
   "entrypoints": [
-    "static/css/main.4789ef1b.css",
-    "static/js/main.d9cb2b0d.js"
+    "static/css/main.d72e0494.css",
+    "static/js/main.3fb1d126.js"
   ]
 }

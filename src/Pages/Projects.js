@@ -1,6 +1,5 @@
 // src/Pages/Projects.js
-import React, { useEffect } from 'react';
-// Switch to clean unified white-glow theme stylesheet
+import React from 'react';
 import './ProjectsClean.css';
 import { motion } from 'framer-motion';
 import { FaGithub } from 'react-icons/fa';
@@ -54,113 +53,50 @@ const projectData = [
 function Projects() {
 	const navigate = useNavigate();
 
-	useEffect(() => {
-		// Enhanced shooting star creation
-		const createShootingStar = () => {
-			const star = document.createElement('div');
-			star.className = 'shooting-star-projects';
-
-			// Randomize starting position more widely
-			star.style.left = `${Math.random() * window.innerWidth}px`;
-			star.style.top = `${Math.random() * window.innerHeight}px`;
-
-			// Randomize the angle of trajectory
-			const angle = Math.random() * 45 + 22.5; // Range between 22.5 and 67.5 degrees
-			star.style.setProperty('--angle', `${angle}deg`);
-
-			document.querySelector('.projects-container').appendChild(star);
-			setTimeout(() => star.remove(), 2000);
-		};
-
-		// Add asteroid creation
-		const createAsteroid = () => {
-			const asteroid = document.createElement('div');
-			asteroid.className = 'asteroid-projects';
-
-			// Random size between 10px and 30px
-			const size = Math.random() * 20 + 10;
-			asteroid.style.width = `${size}px`;
-			asteroid.style.height = `${size}px`;
-
-			// Random starting position outside viewport
-			const startX = -100;
-			const startY = Math.random() * window.innerHeight;
-			asteroid.style.left = `${startX}px`;
-			asteroid.style.top = `${startY}px`;
-
-			document.querySelector('.projects-container').appendChild(asteroid);
-			setTimeout(() => asteroid.remove(), 20000);
-		};
-
-		// Create stars and asteroids at intervals
-		const starInterval = setInterval(createShootingStar, 500);
-		const asteroidInterval = setInterval(createAsteroid, 5000);
-
-		return () => {
-			clearInterval(starInterval);
-			clearInterval(asteroidInterval);
-		};
-	}, []);
-
-	const handleBack = () => {
-		navigate('/', { state: { from: 'projects' } });
-	};
-
 	return (
-		<div className="projects-container">
-			<div className="planet planet-1"></div>
-			<div className="planet planet-2"></div>
-			<div className="planet planet-3"></div>
-			<div className="planet planet-4"></div>
-			<div className="planet planet-5"></div>
-			<div className="shooting-star-container"></div>
-			<div className="projects-header">
-				<button
-					className="void-btn back-btn"
-					onClick={handleBack}
-					aria-label="Back to home"
-				>
-					← Back
-				</button>
-				<h1 className="section-title">
-					<span className="gradient-text">PROJECTS</span>
-				</h1>
-			</div>
-			<div className="projects-grid">
+		<main className="projects-container">
+			<nav className="project-nav" aria-label="Projects navigation">
+				<button onClick={() => navigate('/')}>← Back</button>
+				<a href="https://github.com/KristiDodaj" target="_blank" rel="noopener noreferrer">GitHub</a>
+			</nav>
+
+			<header className="projects-hero">
+				<p>Selected work</p>
+				<h1>Projects</h1>
+				<div className="projects-aura">
+					<div className="floating-agent">
+						<p>Built from scratch, tested through iteration, and shaped around practical engineering problems.</p>
+						<span>6 repositories</span>
+						<span>Systems + ML + mobile</span>
+					</div>
+				</div>
+			</header>
+
+			<section className="projects-grid" aria-label="Project cards">
 				{projectData.map((project, index) => (
-					<motion.div
-						className="project-card glass-card"
-						initial={{ opacity: 0, y: 20 }}
+					<motion.article
+						className="project-card"
+						initial={{ opacity: 0, y: 18 }}
 						animate={{ opacity: 1, y: 0 }}
-						transition={{ duration: 0.5, delay: index * 0.1 }}
-						key={index}
+						transition={{ duration: 0.45, delay: index * 0.08 }}
+						key={project.title}
 					>
 						<div className="project-content">
-							<div className="project-info">
-								<h3>{project.title}</h3>
-								<p>{project.description}</p>
-								<div className="tech-stack">
-									{project.tech.map((tech, i) => (
-										<span key={i} className="tech-tag">
-											{tech}
-										</span>
-									))}
-								</div>
+							<h2>{project.title}</h2>
+							<p>{project.description}</p>
+							<div className="tech-stack">
+								{project.tech.map((tech) => (
+									<span key={tech}>{tech}</span>
+								))}
 							</div>
-							<div className="project-links">
-								<a
-									href={project.github}
-									target="_blank"
-									rel="noopener noreferrer"
-								>
-									<FaGithub />
-								</a>
-							</div>
+							<a href={project.github} target="_blank" rel="noopener noreferrer" aria-label={`${project.title} GitHub repository`}>
+								<FaGithub />
+							</a>
 						</div>
-					</motion.div>
+					</motion.article>
 				))}
-			</div>
-		</div>
+			</section>
+		</main>
 	);
 }
 

@@ -1,293 +1,410 @@
 // src/Pages/Home.js
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import './Home.css';
-import { FaGithub, FaLinkedinIn, FaMediumM } from 'react-icons/fa'; // Add FaMediumM
+import { motion } from 'framer-motion';
+import { FaGithub, FaLinkedinIn, FaMediumM } from 'react-icons/fa';
 import { HiDocument } from 'react-icons/hi';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
+import uoftLogo from '../Assets/uoft.png';
+import wsLogo from '../Assets/wealthsimple-logo.png';
+import slLogo from '../Assets/SunLife.png';
+import cohereLogo from '../Assets/cohere.png';
+import asanaLogo from '../Assets/Asana.png';
+import northDemo from '../Assets/north-demo.png';
+
+const experienceData = [
+  {
+    title: 'BSc Computer Science',
+    company: 'University of Toronto',
+    period: 'Fall 2021',
+    location: 'Toronto, ON',
+    logo: uoftLogo,
+    website: 'https://www.utoronto.ca',
+  },
+  {
+    title: 'Software Engineer Intern',
+    company: 'Wealthsimple',
+    period: 'Summer 2023',
+    location: 'Toronto, ON',
+    logo: wsLogo,
+    website: 'https://www.wealthsimple.com',
+  },
+  {
+    title: 'Software Engineer Intern',
+    company: 'Wealthsimple',
+    period: 'Winter 2024',
+    location: 'Toronto, ON',
+    logo: wsLogo,
+    website: 'https://www.wealthsimple.com',
+  },
+  {
+    title: 'Software Engineer Intern',
+    company: 'Sunlife Financial',
+    period: 'Fall 2024',
+    location: 'Toronto, ON',
+    logo: slLogo,
+    website: 'https://www.sunlife.ca/en/',
+  },
+  {
+    title: 'Intern of Technical Staff',
+    company: 'Cohere',
+    period: 'Winter 2025',
+    location: 'Toronto, ON',
+    logo: cohereLogo,
+    website: 'https://cohere.ai',
+  },
+  {
+    title: 'Software Engineer Intern',
+    company: 'Asana',
+    period: 'Summer 2025',
+    location: 'Vancouver, BC',
+    logo: asanaLogo,
+    website: 'https://www.asana.com',
+  },
+  {
+    title: 'Member of Technical Staff',
+    company: 'Cohere',
+    period: 'Fall 2025 - Present',
+    location: 'Toronto, ON',
+    logo: cohereLogo,
+    website: 'https://cohere.ai',
+    current: true,
+  },
+];
+
+const projectData = [
+  {
+    title: 'NanoML',
+    description:
+      'A lightweight machine learning library built from scratch in modern C++ with a clean API for common ML tasks.',
+    tech: ['C++', 'CMake'],
+    github: 'https://github.com/KristiDodaj/NanoML',
+  },
+  {
+    title: 'HandGestureCNN',
+    description:
+      'A convolutional neural network trained to identify hand gestures for numbers 1-9 from 15,000 labeled images.',
+    tech: ['Python', 'PyTorch', 'Matplotlib'],
+    github: 'https://github.com/KristiDodaj/HandGestureCNN',
+  },
+  {
+    title: 'Plannr',
+    description:
+      'An Android app that helps students plan timetables based on completed courses and course availability.',
+    tech: ['Java', 'Mockito', 'Android Studio', 'Firebase'],
+    github: 'https://github.com/richardye101/Plannr',
+  },
+  {
+    title: 'CLI Monitor Tool',
+    description:
+      'A Unix/Linux command-line monitor for CPU and memory usage, system information, and user sessions.',
+    tech: ['C', 'Makefile', 'Linux/Unix'],
+    github: 'https://github.com/KristiDodaj/System-Monitoring-Tool',
+  },
+  {
+    title: 'Reverse Proxy',
+    description:
+      'A basic HTTP reverse proxy server written in Go with load balancing, fault tolerance, and monitoring.',
+    tech: ['Go'],
+    github: 'https://github.com/KristiDodaj/HTTP-Reverse-Proxy',
+  },
+  {
+    title: 'Recap',
+    description:
+      'A current-events app that gives users a 24-hour recap of accurate, relevant stories from around the world.',
+    tech: ['JavaScript', 'React Native', 'Node.js', 'Express.js', 'Firebase'],
+    github: 'https://github.com/KristiDodaj/RECAP',
+  },
+];
+
+const fadeUp = {
+  hidden: { opacity: 0, y: 48 },
+  visible: { opacity: 1, y: 0 },
+};
+
+const scaleIn = {
+  hidden: { opacity: 0, scale: 0.94 },
+  visible: { opacity: 1, scale: 1 },
+};
+
+const currentWork = {
+  title: 'Cohere North',
+  body: 'Right now at Cohere, I am working on North across Integrations & Dev Platform: MCP, skills, and connectors.',
+  href: 'https://cohere.com/north',
+  tags: ['Integrations & Dev Platform', 'MCP', 'Skills', 'Connectors'],
+};
 
 function Home() {
-  const [isEntering, setIsEntering] = useState(false);
-  const [showWelcome, setShowWelcome] = useState(false);
-  // Pre-hole typewriter
-  const phrases = useRef([
-    'Tap to enter the void...',
-    'Loading stellar coordinates…',
-    'Calibrating event horizon…',
-    'Ready. Touch to jump.'
-  ]);
-  const [promptText, setPromptText] = useState('');
-  const [phraseIndex, setPhraseIndex] = useState(0);
-  const [charIndex, setCharIndex] = useState(0);
-  const [isDeleting, setIsDeleting] = useState(false);
-  const typingIntervalRef = useRef(null);
-  // Hero dynamic roles after entry
-  const roles = useRef([
-    'Software Engineer',
-    'CS @ UofT',
-    'AI/ML Explorer',
-    'Open to New Grad Roles',
-    'Builder & Problem Solver'
-  ]);
-  const [roleText, setRoleText] = useState('');
-  const [roleIndex, setRoleIndex] = useState(0);
-  const [roleCharIndex, setRoleCharIndex] = useState(0);
-  const [rolePhase, setRolePhase] = useState('typing'); // typing | pause | transition
-  const roleTimeoutRef = useRef(null);
-  // Tilt effect
-  const heroRef = useRef(null);
-  const navigate = useNavigate();
   const location = useLocation();
 
-  // Dynamic viewport height fix for iOS Safari (address bar collapse issue)
   useEffect(() => {
-    const setVh = () => {
-      const vh = window.innerHeight * 0.01;
-      document.documentElement.style.setProperty('--vh', `${vh}px`);
+    const sectionByPath = {
+      '/experience': 'experience',
+      '/projects': 'projects',
     };
-    setVh();
-    window.addEventListener('resize', setVh);
-    window.addEventListener('orientationchange', setVh);
-    return () => {
-      window.removeEventListener('resize', setVh);
-      window.removeEventListener('orientationchange', setVh);
-    };
-  }, []);
+    const targetId = location.hash.replace('#', '') || sectionByPath[location.pathname];
 
-  useEffect(() => {
-    if (location.state?.from === 'projects' || location.state?.from === 'experience') {
-      setShowWelcome(true);
-      setIsEntering(false);
-    }
-  }, [location]);
+    if (!targetId) return undefined;
 
-  const enterHole = () => {
-    if (isEntering) return;
-    setIsEntering(true);
-    // Speed up finish of prompt
-    clearInterval(typingIntervalRef.current);
-    setTimeout(() => {
-      setShowWelcome(true);
-    }, 1200);
-  };
+    const timeout = window.setTimeout(() => {
+      document.getElementById(targetId)?.scrollIntoView({ behavior: 'auto', block: 'start' });
+    }, 80);
 
-  // Pre-entry typewriter logic
-  useEffect(() => {
-    if (showWelcome) return; // stop when entered
-    const currentPhrase = phrases.current[phraseIndex];
-    const typingSpeed = isDeleting ? 30 : 70; // ms per char
-    typingIntervalRef.current = setTimeout(() => {
-      if (!isDeleting) {
-        const next = currentPhrase.slice(0, charIndex + 1);
-        setPromptText(next);
-        setCharIndex(c => c + 1);
-        if (next === currentPhrase) {
-          // hold then delete
-            setTimeout(() => setIsDeleting(true), 1200);
-        }
-      } else {
-        const next = currentPhrase.slice(0, charIndex - 1);
-        setPromptText(next);
-        setCharIndex(c => c - 1);
-        if (next.length === 0) {
-          setIsDeleting(false);
-          setPhraseIndex(i => (i + 1) % phrases.current.length);
-        }
-      }
-    }, typingSpeed);
-    return () => clearTimeout(typingIntervalRef.current);
-  }, [charIndex, isDeleting, phraseIndex, showWelcome]);
-
-  // Post-entry smooth role cycle (type-in, pause, fade-out, next)
-  useEffect(() => {
-    if (!showWelcome) return;
-    const currentRole = roles.current[roleIndex];
-
-    if (rolePhase === 'typing') {
-      if (roleCharIndex < currentRole.length) {
-        roleTimeoutRef.current = setTimeout(() => {
-          setRoleText(currentRole.slice(0, roleCharIndex + 1));
-          setRoleCharIndex(c => c + 1);
-        }, 85); // slowed from 55ms to 85ms per character
-      } else {
-        // finished typing
-        roleTimeoutRef.current = setTimeout(() => setRolePhase('pause'), 1400); // extend hold
-      }
-    } else if (rolePhase === 'pause') {
-      roleTimeoutRef.current = setTimeout(() => {
-        setRolePhase('transition');
-      }, 750); // slightly longer pause
-    } else if (rolePhase === 'transition') {
-      // start fade-out then change
-      roleTimeoutRef.current = setTimeout(() => {
-        // prepare next role
-        setRoleIndex(i => (i + 1) % roles.current.length);
-        setRoleText('');
-        setRoleCharIndex(0);
-        setRolePhase('typing');
-      }, 340); // minor adjustment for smoother timing
-    }
-    return () => clearTimeout(roleTimeoutRef.current);
-  }, [showWelcome, rolePhase, roleCharIndex, roleIndex]);
-
-  // Tilt interaction for hero card
-  useEffect(() => {
-    if (!showWelcome) return;
-    const handleMove = (e) => {
-      const el = heroRef.current;
-      if (!el) return;
-      const rect = el.getBoundingClientRect();
-      const x = (e.clientX - rect.left) / rect.width; // 0..1
-      const y = (e.clientY - rect.top) / rect.height; // 0..1
-      const rotateY = (x - 0.5) * 10; // max 10deg
-      const rotateX = (0.5 - y) * 10;
-      el.style.setProperty('--tiltX', rotateX.toFixed(2) + 'deg');
-      el.style.setProperty('--tiltY', rotateY.toFixed(2) + 'deg');
-    };
-    const handleLeave = () => {
-      const el = heroRef.current;
-      if (!el) return;
-      el.style.setProperty('--tiltX', '0deg');
-      el.style.setProperty('--tiltY', '0deg');
-    };
-    window.addEventListener('pointermove', handleMove);
-    window.addEventListener('pointerleave', handleLeave);
-    return () => {
-      window.removeEventListener('pointermove', handleMove);
-      window.removeEventListener('pointerleave', handleLeave);
-    };
-  }, [showWelcome]);
-
-  const createStar = () => {
-    const star = document.createElement('div');
-    star.className = 'shooting-star';
-    
-    // Randomize starting position more widely
-    star.style.left = `${Math.random() * window.innerWidth}px`;
-    star.style.top = `${Math.random() * window.innerHeight}px`;
-    
-    // Randomize the angle of trajectory
-    const angle = Math.random() * 45 + 22.5; // Range between 22.5 and 67.5 degrees
-    star.style.setProperty('--angle', `${angle}deg`);
-    
-    document.querySelector('.page-container').appendChild(star);
-    setTimeout(() => star.remove(), 2000); // Increased from 1000
-  };
-
-  const createAsteroid = () => {
-    const asteroid = document.createElement('div');
-    asteroid.className = 'asteroid';
-    
-    // Random size between 10px and 30px
-    const size = Math.random() * 20 + 10;
-    asteroid.style.width = `${size}px`;
-    asteroid.style.height = `${size}px`;
-    
-    // Random starting position outside viewport
-    const startX = -100;
-    const startY = Math.random() * window.innerHeight;
-    asteroid.style.left = `${startX}px`;
-    asteroid.style.top = `${startY}px`;
-    
-    document.querySelector('.page-container').appendChild(asteroid);
-    setTimeout(() => asteroid.remove(), 20000);
-  };
-
-  useEffect(() => {
-    if (showWelcome) {
-      // Create stars more frequently
-      const starInterval = setInterval(() => {
-        createStar();
-      }, 500); // Decreased from 1000
-
-      // Create asteroids
-      const asteroidInterval = setInterval(() => {
-        createAsteroid();
-      }, 5000);
-
-      return () => {
-        clearInterval(starInterval);
-        clearInterval(asteroidInterval);
-      };
-    }
-  }, [showWelcome]);
+    return () => window.clearTimeout(timeout);
+  }, [location.hash, location.pathname]);
 
   return (
-    <div className="page-container">
-      {!showWelcome && (
-        <>
-          <div className={`black-hole-container ${isEntering ? 'entering' : ''}`}>
-            <div className={`hole ${isEntering ? 'hole-enter' : ''}`} onClick={enterHole} aria-label="Enter site" role="button"></div>
-          </div>
-          {!isEntering && (
-            <div className="text-prompt" aria-live="polite">
-              {promptText}<span className="caret" />
-            </div>
-          )}
-        </>
-      )}
-      
-      {showWelcome && (
-        <div className="content-container">
-          <div className="social-links social-cluster" role="navigation" aria-label="Social Links">
-            <a aria-label="GitHub" href="https://github.com/KristiDodaj" target="_blank" rel="noopener noreferrer" className="social-icon">
-              <FaGithub />
-              <span className="icon-tooltip">GitHub</span>
-            </a>
-            <a aria-label="LinkedIn" href="https://linkedin.com/in/kristidodaj" target="_blank" rel="noopener noreferrer" className="social-icon">
-              <FaLinkedinIn />
-              <span className="icon-tooltip">LinkedIn</span>
-            </a>
-            <a aria-label="Medium" href="https://medium.com/@kristidodaj001" target="_blank" rel="noopener noreferrer" className="social-icon">
-              <FaMediumM />
-              <span className="icon-tooltip">Medium</span>
-            </a>
-            <a aria-label="Resume" href="https://drive.google.com/file/d/1s7_503ni0Q22qzuvuI5eZ4H60LRSU8tK/view?usp=sharing" target="_blank" rel="noopener noreferrer" className="social-icon">
-              <HiDocument />
-              <span className="icon-tooltip">Resume</span>
-            </a>
-          </div>
-          <div className="welcome-text hero" ref={heroRef}>
-            <h1 className="hero-name"><span className="gradient-text">KRISTI DODAJ</span></h1>
-            <div className={`dynamic-roles ${rolePhase === 'transition' ? 'fade-out' : 'fade-in'}`} aria-live="polite">{roleText}<span className="caret"/></div>
-            <p>
-              Hi there <span className="wave">👋</span> I'm a CS student @University of Toronto, 
-              navigating the exciting world of software engineering and tech. 
-              Curious about what I'm up to? Check out my portfolio or shoot me 
-              an email or LinkedIn message!
-            </p>
-          </div>
-          <div className="nav-buttons">
-            <button className="void-btn" onClick={() => navigate('/experience')}>
-              Experience
-            </button>
-            <button className="void-btn" onClick={() => navigate('/projects')}>
-              Projects
-            </button>
-          </div>
-          <div className="footer">
-            Made with 🤍 by Kristi Dodaj
-          </div>
-          
-          {/* New Calendly Button */}
-          <a 
-            href="https://calendly.com/kristidodaj001/30min" 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            className="calendly-button" 
-            aria-label="Book a 30 minute meeting"
-          >
-            <div className="calendly-orbit">
-              <div className="calendly-planet">
-                <span>1:1</span>
-              </div>
-            </div>
-            <span className="calendly-text">Book a Chat</span>
-            <span className="calendly-tooltip">Schedule a quick intro meeting</span>
-          </a>
-          
+    <main className="apple-home">
+      <nav className="site-nav" aria-label="Primary navigation">
+        <a className="brand-wordmark" href="#top" aria-label="Kristi Dodaj home">
+          Kristi
+        </a>
+        <div className="nav-links" aria-label="Page sections">
+          <a href="#focus">Focus</a>
+          <a href="#north">North</a>
+          <a href="#experience">Experience</a>
+          <a href="#projects">Projects</a>
+          <a href="#contact">Contact</a>
         </div>
-      )}
-    </div>
+        <div className="nav-actions" aria-label="Social links">
+          <a aria-label="GitHub" href="https://github.com/KristiDodaj" target="_blank" rel="noopener noreferrer"><FaGithub /></a>
+          <a aria-label="LinkedIn" href="https://linkedin.com/in/kristidodaj" target="_blank" rel="noopener noreferrer"><FaLinkedinIn /></a>
+          <a aria-label="Medium" href="https://medium.com/@kristidodaj001" target="_blank" rel="noopener noreferrer"><FaMediumM /></a>
+          <a className="resume-link" aria-label="Resume" href="https://drive.google.com/file/d/1s7_503ni0Q22qzuvuI5eZ4H60LRSU8tK/view?usp=sharing" target="_blank" rel="noopener noreferrer"><HiDocument /></a>
+        </div>
+      </nav>
+
+      <section className="hero-section" id="top">
+        <motion.div
+          className="hero-copy"
+          initial="hidden"
+          animate="visible"
+          variants={fadeUp}
+          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <p className="eyebrow">Software engineer. UofT CS alum. Currently at Cohere.</p>
+          <h1>Kristi Dodaj</h1>
+          <p className="hero-subtitle">
+            I care about useful systems, thoughtful products, and the craft of
+            turning messy problems into software that feels clear.
+          </p>
+          <div className="hero-actions">
+            <a className="apple-btn light" href="#experience">View experience</a>
+            <a className="apple-btn dark" href="#projects">Explore projects</a>
+          </div>
+        </motion.div>
+      </section>
+
+      <section className="statement-section" id="focus">
+        <motion.div
+          className="statement-copy"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.55 }}
+          variants={fadeUp}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <p className="eyebrow">How I think</p>
+          <h2>Clear systems. Useful products. Strong engineering taste.</h2>
+          <p>
+            I like understanding the shape of a problem, finding the simplest
+            useful path through it, and building with enough care that the result
+            is easy to trust.
+          </p>
+        </motion.div>
+
+        <div className="focus-grid">
+          {[
+            ['Software engineering', 'Product-minded implementation across frontend, backend, and systems work.'],
+            ['AI/ML systems', 'Experiments that turn model behavior and data into usable tools.'],
+            ['Builder mindset', 'Curious, direct, and drawn to work where thoughtful execution matters.'],
+          ].map(([title, body], index) => (
+            <motion.article
+              className="glass-tile"
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.45 }}
+              variants={scaleIn}
+              transition={{ duration: 0.65, delay: index * 0.08, ease: [0.16, 1, 0.3, 1] }}
+              key={title}
+            >
+              <span>{String(index + 1).padStart(2, '0')}</span>
+              <h3>{title}</h3>
+              <p>{body}</p>
+            </motion.article>
+          ))}
+        </div>
+      </section>
+
+      <section className="north-section" id="north">
+        <motion.div
+          className="north-copy"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.45 }}
+          variants={fadeUp}
+          transition={{ duration: 0.76, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <p className="eyebrow">Right now at Cohere</p>
+          <h2>{currentWork.title}</h2>
+          <p>{currentWork.body}</p>
+          <div className="current-work-tags" aria-label="Current work areas">
+            {currentWork.tags.map((tag) => (
+              <span key={tag}>{tag}</span>
+            ))}
+          </div>
+          <a className="apple-btn light" href={currentWork.href} target="_blank" rel="noopener noreferrer">
+            See North
+          </a>
+        </motion.div>
+
+        <motion.a
+          className="north-demo"
+          href={currentWork.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Open Cohere North"
+          initial={{ opacity: 0, y: 80, scale: 0.94 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: true, amount: 0.32 }}
+          transition={{ duration: 0.82, delay: 0.08, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <div className="north-demo-frame">
+            <img src={northDemo} alt="Cohere North product demo screenshot" />
+          </div>
+        </motion.a>
+      </section>
+
+      <section className="scroll-story" aria-label="Portfolio summary">
+        <div className="sticky-stage">
+          <motion.p
+            className="large-line"
+            initial={{ opacity: 0.22, scale: 0.96 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: false, amount: 0.75 }}
+            transition={{ duration: 0.7 }}
+          >
+            Based in Toronto.
+          </motion.p>
+          <motion.p
+            className="large-line muted-line"
+            initial={{ opacity: 0.18, y: 36 }}
+            whileInView={{ opacity: 0.72, y: 0 }}
+            viewport={{ once: false, amount: 0.75 }}
+            transition={{ duration: 0.7 }}
+          >
+            Shaped by UofT, product teams, AI labs, and personal projects.
+          </motion.p>
+        </div>
+      </section>
+
+      <section className="experience-section" id="experience">
+        <motion.div
+          className="section-heading"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.5 }}
+          variants={fadeUp}
+          transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <p className="eyebrow">Experience</p>
+          <h2>From university foundations to product teams and AI systems.</h2>
+        </motion.div>
+
+        <div className="experience-list">
+          {experienceData.map((exp, index) => (
+            <motion.a
+              className="experience-row"
+              href={exp.website}
+              target="_blank"
+              rel="noopener noreferrer"
+              initial={{ opacity: 0, y: 42 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.25 }}
+              transition={{ duration: 0.7, delay: Math.min(index * 0.04, 0.2), ease: [0.16, 1, 0.3, 1] }}
+              key={`${exp.company}-${exp.period}`}
+            >
+              <img src={exp.logo} alt={`${exp.company} logo`} />
+              <div>
+                <h3>
+                  {exp.company}
+                  {exp.current && <span className="current-badge">Current</span>}
+                </h3>
+                <p>{exp.title}</p>
+              </div>
+              <div className="row-meta">
+                <span>{exp.period}</span>
+                <span>{exp.location}</span>
+              </div>
+            </motion.a>
+          ))}
+        </div>
+      </section>
+
+      <section className="projects-section" id="projects">
+        <motion.div
+          className="section-heading"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.5 }}
+          variants={fadeUp}
+          transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <p className="eyebrow">Projects</p>
+          <h2>Selected builds, from ML libraries to mobile products.</h2>
+        </motion.div>
+
+        <div className="project-showcase">
+          {projectData.map((project, index) => (
+            <motion.article
+              className="project-panel"
+              initial={{ opacity: 0, y: 70, scale: 0.96 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: true, amount: 0.28 }}
+              transition={{ duration: 0.75, delay: Math.min(index * 0.05, 0.2), ease: [0.16, 1, 0.3, 1] }}
+              key={project.title}
+            >
+              <div>
+                <span className="project-index">{String(index + 1).padStart(2, '0')}</span>
+                <h3>{project.title}</h3>
+                <p>{project.description}</p>
+              </div>
+              <div className="project-footer">
+                <div className="tech-stack">
+                  {project.tech.map((tech) => (
+                    <span key={tech}>{tech}</span>
+                  ))}
+                </div>
+                <a href={project.github} target="_blank" rel="noopener noreferrer" aria-label={`${project.title} GitHub repository`}>
+                  <FaGithub />
+                </a>
+              </div>
+            </motion.article>
+          ))}
+        </div>
+      </section>
+
+      <section className="contact-section" id="contact">
+        <motion.div
+          className="contact-card"
+          initial={{ opacity: 0, scale: 0.94 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true, amount: 0.5 }}
+          transition={{ duration: 0.75, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <p className="eyebrow">Contact</p>
+          <h2>Build something useful.</h2>
+          <p>
+            Curious about what I'm up to? Reach out on LinkedIn, read my Medium
+            posts, or book a quick intro chat.
+          </p>
+          <div className="contact-actions">
+            <a className="apple-btn light" href="https://calendly.com/kristidodaj001/30min" target="_blank" rel="noopener noreferrer">Book a chat</a>
+            <a className="apple-btn dark" href="https://linkedin.com/in/kristidodaj" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          </div>
+        </motion.div>
+      </section>
+    </main>
   );
 }
 
