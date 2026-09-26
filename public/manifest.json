@@ -1,6 +1,6 @@
 {
   "short_name": "Kristi Dodaj",
-  "name": "Kristi Dodaj — Personal Mission Log",
+  "name": "Kristi Dodaj — Software Engineer",
   "icons": [
     {
       "src": "favicon.ico",
@@ -20,6 +20,6 @@
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#05060d",
-  "background_color": "#05060d"
+  "theme_color": "#000000",
+  "background_color": "#000000"
 }

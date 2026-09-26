@@ -1,49 +1,37 @@
-import { render, screen } from '@testing-library/react';
-
-jest.mock('framer-motion', () => {
-  const React = require('react');
-  const makeComponent = (tag) => React.forwardRef((props, ref) => {
-    const {
-      initial,
-      animate,
-      variants,
-      transition,
-      whileInView,
-      viewport,
-      ...elementProps
-    } = props;
-    return React.createElement(tag, { ...elementProps, ref });
-  });
-
-  return {
-    motion: {
-      a: makeComponent('a'),
-      article: makeComponent('article'),
-      div: makeComponent('div'),
-      header: makeComponent('header'),
-    },
-    useReducedMotion: () => true,
-  };
-});
-
+import { render, screen, within } from '@testing-library/react';
 import App from './App';
 
-test('renders Kristi’s current mission and personal updates', () => {
-  render(<App />);
-
-  expect(screen.getByText(/Member of Technical Staff at Cohere/i)).toBeInTheDocument();
-  expect(screen.getByText(/Teaching agents to use their tools/i)).toBeInTheDocument();
-  expect(screen.getAllByText(/Proxmox/i)).toHaveLength(2);
-  expect(screen.getByText(/Team Topologies/i)).toBeInTheDocument();
-  expect(screen.getByText(/The Power Paradox/i)).toBeInTheDocument();
+afterEach(() => {
+  window.history.replaceState({}, '', '/');
+  jest.restoreAllMocks();
 });
 
-test('renders the career timeline and featured project links', () => {
+test('shows the personal introduction, selected work, books, and contact links', () => {
   render(<App />);
+  expect(screen.getByRole('heading', { level: 1, name: 'Kristi Dodaj' })).toBeInTheDocument();
+  expect(screen.getByText(/software engineer in Toronto/i)).toBeInTheDocument();
+  expect(screen.getByText(/Proxmox/)).toBeInTheDocument();
+  const projects = screen.getByRole('region', { name: 'A few things I’ve built on the side' });
+  expect(within(projects).getAllByRole('link')).toHaveLength(3);
+  expect(screen.getByRole('link', { name: 'NanoML' })).toHaveAttribute('href', 'https://github.com/KristiDodaj/NanoML');
+  const reading = screen.getByRole('region', { name: 'Currently reading' });
+  for (const title of ['Team Topologies', 'Kill It with Fire', 'The Power Paradox']) {
+    expect(within(reading).getByText(title)).toBeInTheDocument();
+  }
+  expect(screen.getByRole('link', { name: 'Email' })).toHaveAttribute('href', 'mailto:kristidodaj001@gmail.com');
+  expect(within(screen.getByRole('navigation')).getAllByRole('link')).toHaveLength(4);
+});
 
-  expect(screen.getByRole('heading', { name: /Experience so far/i })).toBeInTheDocument();
-  expect(screen.getAllByText('Wealthsimple')).toHaveLength(2);
-  expect(screen.getByRole('link', { name: /NanoML/i })).toHaveAttribute('href', 'https://github.com/KristiDodaj/NanoML');
-  expect(screen.getByRole('link', { name: /Reverse Proxy/i })).toBeInTheDocument();
-  expect(screen.getByRole('link', { name: /CLI Monitor/i })).toBeInTheDocument();
+test.each([
+  ['/projects', 'projects'],
+  ['/experience', 'about'],
+  ['/#off-clock', 'reading'],
+  ['/#flight-log', 'about'],
+])('preserves the entry point %s', (path, target) => {
+  const scroll = jest.fn();
+  Object.defineProperty(Element.prototype, 'scrollIntoView', { configurable: true, value: scroll });
+  window.history.replaceState({}, '', path);
+  render(<App />);
+  expect(scroll).toHaveBeenCalledTimes(1);
+  expect(scroll.mock.instances[0]).toBe(document.getElementById(target));
 });
