@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import './Home.css';
 
@@ -22,6 +22,7 @@ const projects = [
 
 function Home() {
   const location = useLocation();
+  const pixelHaloRef = useRef(null);
 
   useEffect(() => {
     const legacySections = {
@@ -34,8 +35,58 @@ function Home() {
     if (target) document.getElementById(target)?.scrollIntoView();
   }, [location.hash, location.pathname]);
 
+  useEffect(() => {
+    const halo = pixelHaloRef.current;
+    const reduceMotion = window.matchMedia?.('(prefers-reduced-motion: reduce)');
+    let frame = 0;
+    let pointerX = 0;
+    let pointerY = 0;
+
+    const moveHalo = () => {
+      halo.style.setProperty('--pointer-x', `${pointerX}px`);
+      halo.style.setProperty('--pointer-y', `${pointerY}px`);
+      frame = 0;
+    };
+
+    const hideHalo = () => halo.classList.remove('is-active');
+
+    const handlePointerMove = (event) => {
+      if (event.pointerType !== 'mouse' || reduceMotion?.matches) {
+        hideHalo();
+        return;
+      }
+
+      const target = event.target;
+      if (!(target instanceof Element) || target.closest('a, button, p, h1, h2, img, figure')) {
+        hideHalo();
+        return;
+      }
+
+      pointerX = event.clientX;
+      pointerY = event.clientY;
+      halo.classList.add('is-active');
+      if (!frame) frame = window.requestAnimationFrame(moveHalo);
+    };
+
+    const handlePointerOut = (event) => {
+      if (!event.relatedTarget) hideHalo();
+    };
+
+    window.addEventListener('pointermove', handlePointerMove);
+    window.addEventListener('pointerout', handlePointerOut);
+    window.addEventListener('blur', hideHalo);
+    return () => {
+      window.removeEventListener('pointermove', handlePointerMove);
+      window.removeEventListener('pointerout', handlePointerOut);
+      window.removeEventListener('blur', hideHalo);
+      window.cancelAnimationFrame(frame);
+    };
+  }, []);
+
   return (
-    <main className="personal-page" id="top">
+    <>
+      <div className="pixel-halo" ref={pixelHaloRef} aria-hidden="true" />
+      <main className="personal-page" id="top">
       <header id="about">
         <h1>Kristi Dodaj</h1>
         <p>
@@ -121,7 +172,8 @@ function Home() {
           <a href="https://drive.google.com/file/d/1s7_503ni0Q22qzuvuI5eZ4H60LRSU8tK/view?usp=sharing">Résumé</a>
         </nav>
       </footer>
-    </main>
+      </main>
+    </>
   );
 }
 
